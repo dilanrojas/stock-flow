@@ -1,7 +1,22 @@
 # stock-flow
 Project | Software Development III
 
-## Table
+## Story points
+
+| Historia     | Descripción                       | Story Points | Justificación                                                          |
+| ------------ | --------------------------------- | ------------ | ---------------------------------------------------------------------- |
+| **SCRUM-12** | Configurar BD (Docker + conexión) | **5**        | No es trivial (Docker + config), pero se hace una sola vez             |
+| **SCRUM-1**  | Agregar productos                 | **8**        | Primera funcionalidad completa (DB + backend + frontend + integración) |
+| **SCRUM-5**  | Listar productos                  | **5**        | Más simple que crear, pero incluye UI + consumo API                    |
+| **SCRUM-3**  | Editar producto                   | **5**        | Similar a crear, pero reutiliza bastante                               |
+| **SCRUM-4**  | Eliminar producto                 | **3**        | Lógica simple, menor complejidad                                       |
+| **SCRUM-6**  | Categorías                        | **5**        | CRUD completo pero más simple que productos                            |
+| **SCRUM-8**  | Proveedores                       | **5**        | Similar a categorías                                                   |
+| **SCRUM-10** | Login                             | **8**        | Seguridad + lógica + frontend (riesgo alto si no lo dominan)           |
+| **SCRUM-9**  | Diseño UI                         | **3**        | Más visual que técnico                                                 |
+| **SCRUM-11** | Dashboard                         | **5**        | Depende de varias partes, pero no es muy complejo                      |
+
+## Subtasks table
 
 | Historia                      | Dilan                                        | Esteban                                 | Valentina                         | Amanda                         |
 | ----------------------------- | -------------------------------------------- | --------------------------------------- | --------------------------------- | ------------------------------ |
