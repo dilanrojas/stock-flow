@@ -1,32 +1,73 @@
-# stock-flow
-Project | Software Development III
+# React + TypeScript + Vite
 
-## Story points
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-| Historia     | Descripción                       | Story Points | Justificación                                                          |
-| ------------ | --------------------------------- | ------------ | ---------------------------------------------------------------------- |
-| **SCRUM-12** | Configurar BD (Docker + conexión) | **5**        | No es trivial (Docker + config), pero se hace una sola vez             |
-| **SCRUM-1**  | Agregar productos                 | **8**        | Primera funcionalidad completa (DB + backend + frontend + integración) |
-| **SCRUM-5**  | Listar productos                  | **5**        | Más simple que crear, pero incluye UI + consumo API                    |
-| **SCRUM-3**  | Editar producto                   | **5**        | Similar a crear, pero reutiliza bastante                               |
-| **SCRUM-4**  | Eliminar producto                 | **3**        | Lógica simple, menor complejidad                                       |
-| **SCRUM-6**  | Categorías                        | **5**        | CRUD completo pero más simple que productos                            |
-| **SCRUM-8**  | Proveedores                       | **5**        | Similar a categorías                                                   |
-| **SCRUM-10** | Login                             | **8**        | Seguridad + lógica + frontend (riesgo alto si no lo dominan)           |
-| **SCRUM-9**  | Diseño UI                         | **3**        | Más visual que técnico                                                 |
-| **SCRUM-11** | Dashboard                         | **5**        | Depende de varias partes, pero no es muy complejo                      |
+Currently, two official plugins are available:
 
-## Subtasks table
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-| Historia                      | Dilan                                        | Esteban                                 | Valentina                         | Amanda                         |
-| ----------------------------- | -------------------------------------------- | --------------------------------------- | --------------------------------- | ------------------------------ |
-| **SCRUM-12** Configurar BD    | Configurar conexión Spring Boot (datasource) | Docker MySQL + docker-compose + init DB | Documentar variables de conexión  | Probar conexión app ↔ DB       |
-| **SCRUM-1** Agregar productos | Integrar frontend ↔ backend + manejo errores | Crear tabla `products` + relaciones     | Crear endpoint POST + lógica      | Formulario UI crear producto   |
-| **SCRUM-5** Listar productos  | Crear UI listado productos                   | Endpoint GET /products                  | Integrar datos en UI              | Revisar datos y queries        |
-| **SCRUM-3** Editar producto   | Integrar API + carga de datos                | Ajustes/validaciones DB                 | Crear endpoint PUT + lógica       | Formulario edición producto    |
-| **SCRUM-4** Eliminar producto | Endpoint DELETE + lógica                     | Constraints y validaciones DB           | Botón eliminar + confirmación     | Actualizar lista en UI         |
-| **SCRUM-6** Categorías        | CRUD backend categorías                      | Crear tabla `categories`                | UI categorías                     | Integrar dropdown en productos |
-| **SCRUM-8** Proveedores       | UI proveedores                               | CRUD backend proveedores                | Integrar proveedores en productos | Crear tabla `suppliers`        |
-| **SCRUM-10** Login            | Integración login (manejo sesión/token)      | UI login                                | Backend login + seguridad         | Tabla `users`                  |
-| **SCRUM-9** Diseño UI         | Ajustes backend (CORS si necesario)          | Apoyo general UI                        | Layout general                    | Estilos + UX                   |
-| **SCRUM-11** Dashboard        | Endpoint estadísticas                        | Queries de datos                        | Integración datos en UI           | Vista dashboard                |
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
