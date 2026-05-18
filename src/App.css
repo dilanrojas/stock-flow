@@ -1,22 +1,4 @@
-:root {
-  color-scheme: light;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-ul,
-ol {
-  list-style: none;
-}
+@import "tailwindcss";
 
 /* Utility classes */
 .wrapper {
