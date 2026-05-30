@@ -86,9 +86,43 @@ pnpm run dev
 
 ### Get to work
 
+#### Make sure you're branch is up to date
+
+Before doing anything, verify you're branch is up to date for avoiding conflicts when committing.
+
+Switch to the development branch
+
+```git
+git checkout development
+```
+
+Pull changes
+
+```git
+git pull
+```
+
+Switch to your branch
+
+```git
+git checkout feature/{name}
+```
+
+Merge changes
+
+```git
+git merge development
+```
+
+Push changes
+
+```git
+git push
+```
+
 #### The right branch
 
-Check your current branch with this command. It must output your branch `feature/{name}` marked with '*' --> `* feature/{name}`.
+Check your current branch with this command. It must output your branch `feature/{name}` marked with '*', like so: `* feature/{name}`.
 
 ```git
 git branch
@@ -102,9 +136,9 @@ git checkout feature/{name}
 
 Check the first command again. If it outputs the right branch, you're all set. Follow the instructions bellow for submitting changes whenever you finish your work.
 
-## Biome check
+#### Biome check
 
-Before creating a commit, make sure the code passes Biome checks and formatting:
+Before creating a commit, make sure the code passes Biome checks and formatting.
 
 ```bash
 pnpm biome check .
@@ -120,24 +154,23 @@ Run these commands before every commit to ensure consistent code style and code 
 
 #### Save changes and create a commit
 
+Add all the changes using a dot.
+
 ```git
 git add .
-git commit -m "feat | issue | ui: {description}"
+```
+
+Create a commit specifying what did you do: feat, fix, ui, docs...
+
+```git
+git commit -m "feat | fix | ui: {description}"
 ```
 
 #### Push your changes
 
-```git
-git push # Make you're on your brach
-```
-
-#### Stay up to date with the main | development branch
+Make sure you're on your branch before submitting
 
 ```git
-git checkout main | development
-git pull
-git checkout feature/{name}
-git merge main | development
 git push
 ```
 
