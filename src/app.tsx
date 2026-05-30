@@ -1,18 +1,26 @@
-import { Routes, Route, Link } from 'react-router-dom'
-import './app.css'
+import { Routes, Route } from "react-router-dom";
+import "./app.css";
+
+import AppLayout from "./layouts/app-layout";
+import Auth from "./pages/auth";
+import Categories from "./pages/categories";
+import Dashboard from "./pages/dashboard";
+import Movements from "./pages/movements";
+import Products from "./pages/products";
+import Sales from "./pages/sales";
 
 export default function App() {
   return (
-    <>
-      <nav>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/about">About</Link>
-      </nav>
+    <Routes>
+      <Route path="/" element={<Auth />} />
 
-      <Routes>
-        <Route path="/" element={<h1>Home</h1>} />
-        <Route path="/about" element={<h1>About</h1>} />
-      </Routes>
-    </>
-  )
+      <Route element={<AppLayout />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/sales" element={<Sales />} />
+        <Route path="/movements" element={<Movements />} />
+      </Route>
+    </Routes>
+  );
 }

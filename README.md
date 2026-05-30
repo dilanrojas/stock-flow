@@ -1,22 +1,23 @@
 # Índice rápido
 
 1. [stock-flow](#stock-flow)
-2. [Diseño de UI](#diseño-de-ui)
-3. [Backlog](#backlog)
-4. [Estructura del proyecto](#estructura-del-proyecto)
-5. [Ejecución local del proyecto](#ejecución-local-del-proyecto)
+2. [Stack](#stack)
+3. [Diseño de UI](#diseño-de-ui)
+4. [Backlog](#backlog)
+5. [Estructura del proyecto](#estructura-del-proyecto)
+6. [Ejecución local del proyecto](#ejecución-local-del-proyecto)
    * Requisitos
    * Clonar el repositorio
    * Instalar dependencias
    * Inicializar Stock Flow
-6. [Flujo de trabajo](#flujo-de-trabajo)
+7. [Flujo de trabajo](#flujo-de-trabajo)
    * Mantener tu rama actualizada
    * Verificar la rama correcta
    * Comprobación con Biome
    * Guardar cambios y crear commits
    * Subir cambios
    * Ramas del proyecto
-7. [Navegación entre páginas](#navegación-entre-páginas)
+8. [Navegación entre páginas](#navegación-entre-páginas)
    * useNavigate
    * Componente Link
 
@@ -28,28 +29,38 @@
 
 <img src="./preview/overview.png" alt="Project's structure" />
 
+## Stack
+
+Este proyecto está construido con las siguientes tecnologías:
+
+- **Vite** — Herramienta de desarrollo y empaquetado rápida para aplicaciones modernas.
+- **React** — Biblioteca para la construcción de interfaces de usuario.
+- **Tailwind CSS** — Framework de utilidades para estilos rápidos y consistentes.
+- **CSS Modules** — Estilos encapsulados por componente para mantener una mejor organización y evitar conflictos de clases.
+
 ## Diseño de UI
 
-[Stitch](https://stitch.withgoogle.com/projects/10518011282484899449)
+Propuesta de diseño disponible en [Stitch](https://stitch.withgoogle.com/projects/10518011282484899449)
 
 ## Backlog
 
-[Jira](https://www.atlassian.com/es/software/jira)
+Organización de historias y subtareas en [Jira](https://www.atlassian.com/es/software/jira)
 
 ## Estructura del proyecto
 
 ```bash
 stock-flow/
 ├── lib/
-│   ├── api/             # Servicios de API y manejo de solicitudes
-│   ├── constants/       # Constantes globales, enums y valores de configuración
-│   ├── types/           # Interfaces y tipos compartidos de TypeScript
-│   └── utils/           # Funciones auxiliares y utilitarias
+│   ├── api/        # Servicios de API y manejo de solicitudes
+│   ├── constants/  # Constantes globales, enums y valores de configuración
+│   ├── types/      # Interfaces y tipos compartidos de TypeScript
+│   └── utils/      # Funciones auxiliares y utilitarias
 │
-├── public/              # Recursos estáticos servidos directamente por Vite
+├── public/         # Recursos estáticos servidos directamente por Vite
 │
 ├── src/
 │   ├── components/
+│   │   ├── auth/        # Componentes relacionados con el login
 │   │   ├── categories/  # Componentes relacionados con categorías
 │   │   ├── dashboard/   # Widgets, gráficos y componentes de resumen del dashboard
 │   │   ├── movements/   # Componentes de movimientos de inventario (entradas, salidas y ajustes)
@@ -60,9 +71,17 @@ stock-flow/
 │   │
 │   ├── layouts/         # Layouts reutilizables de la aplicación
 │   │
-│   ├── app.css          # Estilos globales de la aplicación
-│   ├── app.tsx          # Componente raíz de la aplicación
-│   └── main.tsx         # Punto de entrada de la aplicación
+│   ├── pages/               # Vistas principales asociadas a las rutas de la aplicación
+│   │   ├── auth.tsx         # Inicio de sesión
+│   │   ├── categories.tsx   # Categorías
+│   │   ├── dashboard.tsx    # Dashboard
+│   │   ├── movements.tsx    # Movimientos de inventario
+│   │   ├── products.tsx     # Productos
+│   │   └── sales.tsx        # Ventas
+│   │
+│   ├── app.css      # Estilos globales de la aplicación
+│   ├── app.tsx      # Componente raíz de la aplicación
+│   └── main.tsx     # Punto de entrada de la aplicación
 │
 ├── README.md            # Documentación e instrucciones de configuración
 ├── biome.json           # Configuración de Biome (formatter, linter y reglas de calidad)
@@ -306,5 +325,5 @@ export default function UsageExample() {
 
 ---
 
-> ![NOTE]
+>[!NOTE]
 > Se recomienda seguir siempre el flujo: actualizar la rama → desarrollar → ejecutar Biome → crear commit → hacer push. Esto ayuda a mantener el repositorio organizado y reduce conflictos al integrar cambios.
