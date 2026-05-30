@@ -1,184 +1,258 @@
+# Índice rápido
+
+1. [stock-flow](#stock-flow)
+2. [Diseño de UI](#diseño-de-ui)
+3. [Backlog](#backlog)
+4. [Estructura del proyecto](#estructura-del-proyecto)
+5. [Ejecución local del proyecto](#ejecución-local-del-proyecto)
+   * Requisitos
+   * Clonar el repositorio
+   * Instalar dependencias
+   * Inicializar Stock Flow
+6. [Flujo de trabajo](#flujo-de-trabajo)
+   * Mantener tu rama actualizada
+   * Verificar la rama correcta
+   * Comprobación con Biome
+   * Guardar cambios y crear commits
+   * Subir cambios
+   * Ramas del proyecto
+7. [Navegación entre páginas](#navegación-entre-páginas)
+   * useNavigate
+   * Componente Link
+
+---
+
 # stock-flow
-Project | Software Development III
 
-## UI Design
+**Proyecto | Desarrollo de Software III**
 
-[Stich](https://stitch.withgoogle.com/projects/10518011282484899449)
+<img src="./preview/image.png" alt="Project's structure" />
+
+## Diseño de UI
+
+[Stitch](https://stitch.withgoogle.com/projects/10518011282484899449)
 
 ## Backlog
 
 [Jira](https://www.atlassian.com/es/software/jira)
 
-## Project's structure
+## Estructura del proyecto
 
 ```bash
 stock-flow/
 ├── lib/
-│   ├── api/             # API services and request handlers
-│   ├── constants/       # Global constants, enums, and configuration values
-│   ├── types/           # Shared TypeScript interfaces and types
-│   └── utils/           # Helper and utility functions
+│   ├── api/             # Servicios de API y manejo de solicitudes
+│   ├── constants/       # Constantes globales, enums y valores de configuración
+│   ├── types/           # Interfaces y tipos compartidos de TypeScript
+│   └── utils/           # Funciones auxiliares y utilitarias
 │
-├── public/              # Static assets served directly by Vite
+├── public/              # Recursos estáticos servidos directamente por Vite
 │
 ├── src/
 │   ├── components/
-│   │   ├── categories/  # Category-related components
-│   │   ├── dashboard/   # Dashboard widgets, charts, and summary components
-│   │   ├── movements/   # Inventory movement components (entries, exits, adjustments)
-│   │   ├── products/    # Product management components
-│   │   ├── sales/       # Sales-related components
-│   │   ├── sidebar/     # App's navigation sidebar menu
-│   │   └── ui/          # Reusable UI components (buttons, tables, modals, inputs, etc.)
+│   │   ├── categories/  # Componentes relacionados con categorías
+│   │   ├── dashboard/   # Widgets, gráficos y componentes de resumen del dashboard
+│   │   ├── movements/   # Componentes de movimientos de inventario (entradas, salidas y ajustes)
+│   │   ├── products/    # Componentes de gestión de productos
+│   │   ├── sales/       # Componentes relacionados con ventas
+│   │   ├── sidebar/     # Menú lateral de navegación de la aplicación
+│   │   └── ui/          # Componentes reutilizables de UI (botones, tablas, modales, inputs, etc.)
 │   │
-│   ├── layouts/         # App's reusable layouts
+│   ├── layouts/         # Layouts reutilizables de la aplicación
 │   │
-│   ├── app.css          # Global application styles
-│   ├── app.tsx          # Root application component
-│   └── main.tsx         # Application entry point
+│   ├── app.css          # Estilos globales de la aplicación
+│   ├── app.tsx          # Componente raíz de la aplicación
+│   └── main.tsx         # Punto de entrada de la aplicación
 │
-├── README.md            # Project documentation and setup instructions
-├── biome.json           # Biome configuration (formatter, linter, and code quality rules)
-├── index.html           # Main HTML entry point used by Vite
-├── package.json         # Project dependencies, scripts, and metadata
-├── pnpm-lock.yaml       # Locked dependency versions for reproducible installs
-├── tsconfig.app.json    # TypeScript configuration for the application source
-├── tsconfig.json        # Base TypeScript configuration shared across the project
-├── tsconfig.node.json   # TypeScript configuration for Node.js tooling and Vite
-└── vite.config.ts       # Vite configuration (plugins, aliases, build, and dev server settings)
+├── README.md            # Documentación e instrucciones de configuración
+├── biome.json           # Configuración de Biome (formatter, linter y reglas de calidad)
+├── index.html           # Archivo HTML principal utilizado por Vite
+├── package.json         # Dependencias, scripts y metadatos del proyecto
+├── pnpm-lock.yaml       # Versiones bloqueadas para instalaciones reproducibles
+├── tsconfig.app.json    # Configuración de TypeScript para el código de la aplicación
+├── tsconfig.json        # Configuración base compartida de TypeScript
+├── tsconfig.node.json   # Configuración de TypeScript para Node.js y Vite
+└── vite.config.ts       # Configuración de Vite (plugins, alias, build y servidor de desarrollo)
 ```
 
-## 
+---
 
-## Executing this project locally
+# Ejecución local del proyecto
 
-### Requirements
+## Requisitos
 
-  - [NodeJS](https://nodejs.org/en)
-  - [pnpm](https://pnpm.io/) // Optional, but recommended. Install using `npm install -g pnpm`
+* [Node.js](https://nodejs.org/en)
+* [pnpm](https://pnpm.io/) *(Opcional, pero recomendado)*. Instálalo con:
 
-### Clone this repo
-
+```bash
+npm install -g pnpm
 ```
+
+## Clonar el repositorio
+
+```bash
 git clone https://github.com/dilanrojas/stock-flow
 cd stock-flow
 ```
 
-### Install dependencies
+## Instalar dependencias
 
-Using npm
+### Usando npm
 
-```
+```bash
 npm install
 ```
 
-Using pnpm (better)
+### Usando pnpm (recomendado)
 
-```
+```bash
 pnpm install
 ```
 
-### Initialize stock-flow
+## Inicializar Stock Flow
 
 ```bash
 pnpm run dev
 ```
 
-### Get to work
+---
 
-#### Make sure you're branch is up to date
+# Flujo de trabajo
 
-Before doing anything, verify you're branch is up to date for avoiding conflicts when committing.
+## Mantén tu rama actualizada
 
-Switch to the development branch
+Antes de comenzar cualquier tarea, verifica que tu rama esté actualizada para evitar conflictos al hacer commits.
+
+### Cambiar a la rama de desarrollo
 
 ```git
 git checkout development
 ```
 
-Pull changes
+### Descargar cambios recientes
 
 ```git
 git pull
 ```
 
-Switch to your branch
+### Volver a tu rama
 
 ```git
-git checkout feature/{name}
+git checkout feat/{nombre}
 ```
 
-Merge changes
+### Fusionar cambios de desarrollo
 
 ```git
 git merge development
 ```
 
-Push changes
+### Subir los cambios
 
 ```git
 git push
 ```
 
-#### The right branch
+---
 
-Check your current branch with this command. It must output your branch `feature/{name}` marked with '*', like so: `* feature/{name}`.
+## Verifica que estás en la rama correcta
+
+Comprueba tu rama actual con:
 
 ```git
 git branch
 ```
 
-If it doesn't output your branch. Switch it.
+Debe mostrar tu rama `feat/{nombre}` marcada con `*`, por ejemplo:
 
 ```git
-git checkout feature/{name}
+* feat/{nombre}
 ```
 
-Check the first command again. If it outputs the right branch, you're all set. Follow the instructions bellow for submitting changes whenever you finish your work.
+Si no estás en tu rama:
 
-#### Biome check
+```git
+git checkout feat/{nombre}
+```
 
-Before creating a commit, make sure the code passes Biome checks and formatting.
+Ejecuta nuevamente:
+
+```git
+git branch
+```
+
+Si aparece la rama correcta marcada con `*`, ya puedes continuar trabajando.
+
+---
+
+## Comprobación con Biome
+
+Antes de crear un commit, asegúrate de que el código cumpla con las reglas de formato y calidad definidas por Biome.
+
+### Verificar el proyecto
 
 ```bash
 pnpm biome check .
 ```
 
-If Biome reports formatting issues, automatically fix them with:
+### Corregir problemas automáticamente
 
 ```bash
 pnpm biome check --write .
 ```
 
-Run these commands before every commit to ensure consistent code style and code quality across the project.
+Ejecuta estos comandos antes de cada commit para mantener un estilo de código consistente y una buena calidad en todo el proyecto.
 
-#### Save changes and create a commit
+---
 
-Add all the changes using a dot.
+## Guardar cambios y crear un commit
+
+### Agregar todos los cambios
 
 ```git
 git add .
 ```
 
-Create a commit specifying what did you do: feat, fix, ui, docs...
+### Crear un commit
+
+Especifica el tipo de cambio realizado (`feat`, `fix`, `ui`, `docs`, etc.):
 
 ```git
-git commit -m "feat | fix | ui: {description}"
+git commit -m "feat | fix | ui: {descripción}"
 ```
 
-#### Push your changes
+---
 
-Make sure you're on your branch before submitting
+## Subir tus cambios
+
+Asegúrate de estar en tu rama antes de enviarlos:
 
 ```git
 git push
 ```
 
-### Page navigation
+---
 
-#### useNavigate (react's hook)
+## Ramas del proyecto
 
-useNavigate is used when navigation depends on custom logic (login, validation).
+Como referencia, estas son las ramas principales:
+
+```git
+* main          # Rama de producción
+  development   # Rama de pruebas antes de fusionar a main
+  feat/dilan    # Rama de Dilan
+  feat/angely   # Rama de Angely
+  feat/esteban  # Rama de Esteban
+  feat/amanda   # Rama de Amanda
+```
+
+---
+
+# Navegación entre páginas
+
+## useNavigate (hook de React)
+
+`useNavigate` se utiliza cuando la navegación depende de lógica personalizada (inicio de sesión, validaciones, permisos, etc.).
 
 ```jsx
 import { useNavigate } from "react-router-dom";
@@ -188,24 +262,26 @@ export default function UsageExample() {
 
   const handleClick = () => {
     if (condition) {
-      navigate("/home"); // redirect
+      navigate("/home"); // redirige
     } else {
-      alert("Condition not met");
+      alert("Condición no cumplida");
     }
   };
 
   return (
-    <h1>Page content</h1>
-  )
+    <h1>Contenido de la página</h1>
+  );
 }
 ```
 
-#### Link component
+---
 
-Link is used for user navigation (menus, buttons, nav bar).
+## Componente Link
+
+`Link` se utiliza para la navegación iniciada por el usuario (menús, botones, barra de navegación, etc.).
 
 ```jsx
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function UsageExample() {
   return (
@@ -213,12 +289,22 @@ export default function UsageExample() {
       <nav>
         <ul>
           <li>
-            <Link to='/products'>Products</Link> // redirects to /products page as defined inside <Routes />
-            <Link to='/profile'>My profile</Link>
+            <Link to="/products">
+              Productos
+            </Link> {/* Redirige a /products según lo definido en <Routes /> */}
+
+            <Link to="/profile">
+              Mi perfil
+            </Link>
           </li>
         </ul>
       </nav>
     </header>
-  )
+  );
 }
 ```
+
+---
+
+> ![NOTE]
+> Se recomienda seguir siempre el flujo: actualizar la rama → desarrollar → ejecutar Biome → crear commit → hacer push. Esto ayuda a mantener el repositorio organizado y reduce conflictos al integrar cambios.
