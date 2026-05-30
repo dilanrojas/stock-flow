@@ -1,52 +1,151 @@
 # stock-flow
 Project | Software Development III
 
-## Table
+## UI Design
 
-| Historia                      | Dilan                                        | Esteban                                 | Valentina                         | Amanda                         |
-| ----------------------------- | -------------------------------------------- | --------------------------------------- | --------------------------------- | ------------------------------ |
-| **SCRUM-12** Configurar BD    | Configurar conexión Spring Boot (datasource) | Docker MySQL + docker-compose + init DB | Documentar variables de conexión  | Probar conexión app ↔ DB       |
-| **SCRUM-1** Agregar productos | Integrar frontend ↔ backend + manejo errores | Crear tabla `products` + relaciones     | Crear endpoint POST + lógica      | Formulario UI crear producto   |
-| **SCRUM-5** Listar productos  | Crear UI listado productos                   | Endpoint GET /products                  | Integrar datos en UI              | Revisar datos y queries        |
-| **SCRUM-3** Editar producto   | Integrar API + carga de datos                | Ajustes/validaciones DB                 | Crear endpoint PUT + lógica       | Formulario edición producto    |
-| **SCRUM-4** Eliminar producto | Endpoint DELETE + lógica                     | Constraints y validaciones DB           | Botón eliminar + confirmación     | Actualizar lista en UI         |
-| **SCRUM-6** Categorías        | CRUD backend categorías                      | Crear tabla `categories`                | UI categorías                     | Integrar dropdown en productos |
-| **SCRUM-8** Proveedores       | UI proveedores                               | CRUD backend proveedores                | Integrar proveedores en productos | Crear tabla `suppliers`        |
-| **SCRUM-10** Login            | Integración login (manejo sesión/token)      | UI login                                | Backend login + seguridad         | Tabla `users`                  |
-| **SCRUM-9** Diseño UI         | Ajustes backend (CORS si necesario)          | Apoyo general UI                        | Layout general                    | Estilos + UX                   |
-| **SCRUM-11** Dashboard        | Endpoint estadísticas                        | Queries de datos                        | Integración datos en UI           | Vista dashboard                |
+[Stich](https://stitch.withgoogle.com/projects/10518011282484899449)
 
+## Backlog
 
-## Cómo ejecutar la aplicación
+[Jira](https://www.atlassian.com/es/software/jira)
 
-### Requisitos
+## Project's structure
+
+```bash
+stock-flow/
+├── lib/
+│   ├── api/             # API services and request handlers
+│   ├── constants/       # Global constants, enums, and configuration values
+│   ├── types/           # Shared TypeScript interfaces and types
+│   └── utils/           # Helper and utility functions
+│
+├── public/              # Static assets served directly by Vite
+│
+├── src/
+│   ├── components/
+│   │   ├── categories/  # Category-related components
+│   │   ├── dashboard/   # Dashboard widgets, charts, and summary components
+│   │   ├── movements/   # Inventory movement components (entries, exits, adjustments)
+│   │   ├── products/    # Product management components
+│   │   ├── sales/       # Sales-related components
+│   │   ├── sidebar/     # App's navigation sidebar menu
+│   │   └── ui/          # Reusable UI components (buttons, tables, modals, inputs, etc.)
+│   │
+│   ├── layouts/         # App's reusable layouts
+│   │
+│   ├── app.css          # Global application styles
+│   ├── app.tsx          # Root application component
+│   └── main.tsx         # Application entry point
+│
+├── README.md            # Project documentation and setup instructions
+├── biome.json           # Biome configuration (formatter, linter, and code quality rules)
+├── index.html           # Main HTML entry point used by Vite
+├── package.json         # Project dependencies, scripts, and metadata
+├── pnpm-lock.yaml       # Locked dependency versions for reproducible installs
+├── tsconfig.app.json    # TypeScript configuration for the application source
+├── tsconfig.json        # Base TypeScript configuration shared across the project
+├── tsconfig.node.json   # TypeScript configuration for Node.js tooling and Vite
+└── vite.config.ts       # Vite configuration (plugins, aliases, build, and dev server settings)
+```
+
+## 
+
+## Executing this project locally
+
+### Requirements
 
   - [NodeJS](https://nodejs.org/en)
+  - [pnpm](https://pnpm.io/) // Optional, but recommended. Install using `npm install -g pnpm`
 
-### Clona el repositorio
+### Clone this repo
 
 ```
 git clone https://github.com/dilanrojas/stock-flow
 cd stock-flow
 ```
 
-### Instalar dependencias
+### Install dependencies
+
+Using npm
 
 ```
 npm install
 ```
 
-### Iniciar el proyecto
+Using pnpm (better)
 
-```bash
-npm run dev
+```
+pnpm install
 ```
 
-### Navegación entre páginas
+### Initialize stock-flow
 
-#### useNavigate (hook de react)
+```bash
+pnpm run dev
+```
 
-useNavigate se utiliza cuando la navegación depende de lógica (login, validación).
+### Get to work
+
+#### The right branch
+
+Check your current branch with this command. It must output your branch `feature/{name}` marked with '*' --> `* feature/{name}`.
+
+```git
+git branch
+```
+
+If it doesn't output your branch. Switch it.
+
+```git
+git checkout feature/{name}
+```
+
+Check the first command again. If it outputs the right branch, you're all set. Follow the instructions bellow for submitting changes whenever you finish your work.
+
+## Biome check
+
+Before creating a commit, make sure the code passes Biome checks and formatting:
+
+```bash
+pnpm biome check .
+```
+
+If Biome reports formatting issues, automatically fix them with:
+
+```bash
+pnpm biome check --write .
+```
+
+Run these commands before every commit to ensure consistent code style and code quality across the project.
+
+#### Save changes and create a commit
+
+```git
+git add .
+git commit -m "feat | issue | ui: {description}"
+```
+
+#### Push your changes
+
+```git
+git push # Make you're on your brach
+```
+
+#### Stay up to date with the main | development branch
+
+```git
+git checkout main | development
+git pull
+git checkout feature/{name}
+git merge main | development
+git push
+```
+
+### Page navigation
+
+#### useNavigate (react's hook)
+
+useNavigate is used when navigation depends on custom logic (login, validation).
 
 ```jsx
 import { useNavigate } from "react-router-dom";
@@ -70,7 +169,7 @@ export default function UsageExample() {
 
 #### Link component
 
-Link se utiliza para navegación del usuario (menú, botones, navbar).
+Link is used for user navigation (menus, buttons, nav bar).
 
 ```jsx
 import { Link } from 'react-router-dom';
@@ -81,43 +180,12 @@ export default function UsageExample() {
       <nav>
         <ul>
           <li>
-            <Link to='/petlist'>Mascotas</Link> // redirects to /petlist page as defined inside <Routes />
-            <Link to='/clientprofile'>Mi perfil</Link>
+            <Link to='/products'>Products</Link> // redirects to /products page as defined inside <Routes />
+            <Link to='/profile'>My profile</Link>
           </li>
         </ul>
       </nav>
     </header>
   )
 }
-```
-
-### Comandos Git necesarios
-
-#### Cambiar a tu branch
-
-```git
-git checkout feature/nombre
-```
-
-#### Guardar cambios y hacer commit
-
-```git
-git add . # '.' añade todos los cambios. Mas específico --> git add ./src/App.css
-git commit -m "Describe los cambios"
-```
-
-#### Hacer "push" de los cambios
-
-```git
-git push origin feature/nombre
-```
-
-#### Estar al día con la rama main
-
-```git
-git checkout main
-git pull origin main
-git checkout feature/nombre
-git merge main
-git push --force
 ```
