@@ -59,6 +59,9 @@ stock-flow/
 ├── public/         # Recursos estáticos servidos directamente por Vite
 │
 ├── src/
+│   ├── assets/          # Recursos estáticos de la aplicación
+│   │   └── icons.tsx    # Exportación y centralización de iconos reutilizables
+│   │
 │   ├── components/
 │   │   ├── auth/        # Componentes relacionados con el login
 │   │   ├── categories/  # Componentes relacionados con categorías
