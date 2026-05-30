@@ -1,0 +1,9 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-size: var(--fs-xs);
+  font-weight: 500;
+}

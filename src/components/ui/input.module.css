@@ -1,0 +1,13 @@
+.input {
+  border: 1px solid var(--border-input);
+  padding: .6rem 1.2rem;
+  border-radius: var(--rounded);
+}
+
+.input:focus {
+  outline: 1px solid var(--accent);
+}
+
+.input::placeholder {
+  color: var(--text-tertiary);
+}

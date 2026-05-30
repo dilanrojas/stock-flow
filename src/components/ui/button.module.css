@@ -1,0 +1,17 @@
+.button {
+  background-color: var(--accent);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 501;
+  gap: .4rem;
+  padding: .7rem 1rem;
+  border-radius: var(--rounded);
+  transition: opacity .12s ease;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .8;
+  }
+}

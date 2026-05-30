@@ -141,6 +141,14 @@ pnpm run dev
 
 # Flujo de trabajo
 
+
+## Variables de entorno
+
+Stock Flow utiliza el archivo `.env` para conectarse, entre otras cosas, a la API.
+
+Añade las siguientes variables a dicho archivo:
+  - VITE_API_URL
+
 ## Mantén tu rama actualizada
 
 Antes de comenzar cualquier tarea, verifica que tu rama esté actualizada para evitar conflictos al hacer commits.
