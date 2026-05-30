@@ -26,7 +26,7 @@
 
 **Proyecto | Desarrollo de Software III**
 
-<img src="./preview/project.png" alt="Project's structure" />
+<img src="./preview/overview.png" alt="Project's structure" />
 
 ## Diseño de UI
 
