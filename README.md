@@ -29,6 +29,11 @@
 
 <img src="./preview/overview.png" alt="Project's structure" />
 
+## Credenciales (Demo)
+
+- **Correo**: admin@stockflow.com
+- **Contraseña**: admin123
+
 ## Stack
 
 Este proyecto está construido con las siguientes tecnologías:
@@ -68,6 +73,7 @@ stock-flow/
 │   │   ├── dashboard/   # Widgets, gráficos y componentes de resumen del dashboard
 │   │   ├── movements/   # Componentes de movimientos de inventario (entradas, salidas y ajustes)
 │   │   ├── products/    # Componentes de gestión de productos
+│   │   ├── purchases/    # Componentes de gestión de compras
 │   │   ├── sales/       # Componentes relacionados con ventas
 │   │   ├── sidebar/     # Menú lateral de navegación de la aplicación
 │   │   └── ui/          # Componentes reutilizables de UI (botones, tablas, modales, inputs, etc.)
@@ -80,6 +86,7 @@ stock-flow/
 │   │   ├── dashboard.tsx    # Dashboard
 │   │   ├── movements.tsx    # Movimientos de inventario
 │   │   ├── products.tsx     # Productos
+│   │   ├── purchases.tsx     # Compras
 │   │   └── sales.tsx        # Ventas
 │   │
 │   ├── app.css      # Estilos globales de la aplicación
