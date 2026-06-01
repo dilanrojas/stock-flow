@@ -3,5 +3,5 @@ export default function Sales() {
     <section>
       <h1>Sales</h1>
     </section>
-  )
+  );
 }

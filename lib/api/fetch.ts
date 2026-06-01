@@ -14,9 +14,8 @@ export const fetchAPI = async (endpoint: string): Promise<[]> => {
 
     const data = response.json();
     return data;
-
   } catch (error) {
     console.log(`Error: ${error}`);
     return [];
   }
-}
+};

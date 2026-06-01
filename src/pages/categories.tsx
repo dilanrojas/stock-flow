@@ -3,5 +3,5 @@ export default function Categories() {
     <section>
       <h1>Categories Page</h1>
     </section>
-  )
+  );
 }

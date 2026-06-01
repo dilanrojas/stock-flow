@@ -3,5 +3,5 @@ export default function Movements() {
     <section>
       <h1>Movements</h1>
     </section>
-  )
+  );
 }

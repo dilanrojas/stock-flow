@@ -3,5 +3,5 @@ export default function Products() {
     <section>
       <h1>Products</h1>
     </section>
-  )
+  );
 }

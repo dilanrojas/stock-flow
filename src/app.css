@@ -5,28 +5,63 @@
   --rounded-md: 8px;
   --rounded-lg: 16px;
 
-  --fs-2xs: .7rem;
-  --fs-xs: .85rem;
-  --fs-sm: .9rem;
+  --fs-2xs: 0.7rem;
+  --fs-xs: 0.85rem;
+  --fs-sm: 0.9rem;
   --fs-md: 1rem;
   --fs-lg: 1.2rem;
   --fs-xl: 1.5rem;
   --fs-2xl: 1.8rem;
   --fs-3xl: 2.2rem;
 
-  --bg: #ffffff;
+  --bg: rgb(255 255 255);
 
-  --text: #000000;
-  --text-secondary: #404040;
-  --text-tertiary: #606060;
+  --text: rgb(0 0 0);
+  --text-secondary: rgb(64 64 64);
+  --text-tertiary: rgb(96 96 96);
 
-  --border-input: #dfdfe3;
+  --border-input: rgb(223 223 227);
 
-  --accent: #0058be;
+  --accent: rgb(0 88 190);
+  --accent-light: rgb(0 88 190 / 0.07);
 
-  --white: #ffffff;
-  --black: #000000;
-  --light-gray: #ccc;
+  --bg-sidebar: rgb(255 255 255);
+  --bg-sidebar-hover: rgb(240 240 240);
+
+  --footer-border: rgb(220 220 220);
+
+  --white: rgb(255 255 255);
+  --black: rgb(0 0 0);
+  --light-gray: rgb(204 204 204);
+  --red: rgb(225 53 47);
+
+  /* Status colors */
+  --success: rgb(34 211 145);
+  --success-light: rgb(34 211 145 / 0.1);
+
+  --neutral: rgb(231 240 255);
+  --neutral-light: rgb(48 58 74);
+
+  --normal: rgb(59 130 246);
+  --normal-light: rgb(59 130 246 / 0.1);
+
+  --caution: rgb(249 115 22);
+  --caution-light: rgb(249 115 22 / 0.1);
+
+  --alert: rgb(245 158 11);
+  --alert-light: rgb(245 158 11 / 0.1);
+
+  --notice: rgb(34 211 238);
+  --notice-light: rgb(34 211 238 / 0.1);
+
+  --unurgent: rgb(168 85 247);
+  --unurgent-light: rgb(168 85 247 / 0.1);
+
+  --future: rgb(247 86 204);
+  --future-light: rgb(247 86 204 / 0.1);
+
+  --warning: rgb(239 68 68);
+  --warning-light: rgb(239 68 68 / 0.1);
 
   color-scheme: light;
 }

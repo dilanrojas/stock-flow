@@ -1,11 +1,19 @@
-import type { ComponentProps } from "react"
-
-export type LabelProps = ComponentProps<'label'>;
-
+import type { ComponentProps } from 'react';
 import styles from './label.module.css';
 
-export default function Label({ ...props }: LabelProps) {
+type LabelProps = ComponentProps<'label'> & {
+  children: React.ReactNode;
+  htmlFor: string;
+};
+
+export default function Label({ children, htmlFor, ...props }: LabelProps) {
   return (
-    <label {...props} className={styles.label} />
-  )
+    <label
+      htmlFor={htmlFor}
+      className={styles.label}
+      {...props}
+    >
+      {children}
+    </label>
+  );
 }
