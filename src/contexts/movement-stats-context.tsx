@@ -8,6 +8,7 @@ type MovementStatsContextType = {
   stats: MovementStats | null;
   isLoading: boolean;
   error: string | null;
+  adjustStatsForMovement: (quantity: number, delta?: number) => void;
 };
 
 const MovementStatsContext = createContext<MovementStatsContextType | null>(null);
@@ -24,6 +25,18 @@ export default function MovementStatsProvider({ children }: { children: React.Re
   const [stats, setStats] = useState<MovementStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const adjustStatsForMovement = (quantity: number, delta = 1) => {
+    setStats((prev) => {
+      if (!prev) return prev;
+
+      return {
+        totalMovements: prev.totalMovements + delta,
+        totalInflows: prev.totalInflows + (quantity > 0 ? quantity * delta : 0),
+        totalOutflows: prev.totalOutflows + (quantity < 0 ? Math.abs(quantity) * delta : 0),
+      };
+    });
+  };
 
   useEffect(() => {
     let active = true;
@@ -60,6 +73,7 @@ export default function MovementStatsProvider({ children }: { children: React.Re
         stats,
         isLoading,
         error,
+        adjustStatsForMovement,
       }}
     >
       {children}

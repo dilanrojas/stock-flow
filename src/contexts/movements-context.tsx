@@ -3,6 +3,7 @@
 import { createContext, useContext, useState } from 'react';
 import { createMovement } from '../../services/movements/post';
 import { getMovements } from '../../services/movements/get';
+import { useMovementStats } from './movement-stats-context';
 import type { MovementRequest, MovementResponse } from '../../lib/types/movement';
 
 type MovementsContextType = {
@@ -20,6 +21,11 @@ type MovementsContextType = {
 
 const MovementsContext = createContext<MovementsContextType | null>(null);
 
+const sortMovementsLatestFirst = (movements: MovementResponse[]) =>
+  [...movements].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  );
+
 export default function MovementsProvider({
   initialMovements,
   initialPage,
@@ -35,7 +41,9 @@ export default function MovementsProvider({
   initialTotalElements: number;
   children: React.ReactNode;
 }) {
-  const [movements, setMovements] = useState<MovementResponse[]>(initialMovements);
+  const [movements, setMovements] = useState<MovementResponse[]>(() =>
+    sortMovementsLatestFirst(initialMovements),
+  );
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [pageSize, setPageSize] = useState(initialPageSize);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
@@ -43,6 +51,7 @@ export default function MovementsProvider({
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { adjustStatsForMovement } = useMovementStats();
 
   const goToPage = async (page: number) => {
     if (page < 1 || page > totalPages || page === currentPage) {
@@ -55,7 +64,7 @@ export default function MovementsProvider({
     try {
       const response = await getMovements(page - 1, pageSize);
 
-      setMovements(response.content ?? []);
+      setMovements(sortMovementsLatestFirst(response.content ?? []));
       setCurrentPage(response.number + 1);
       setPageSize(response.size);
       setTotalPages(response.totalPages);
@@ -76,22 +85,33 @@ export default function MovementsProvider({
       stockResourceId: data.stockResourceId,
     };
 
-    setMovements((prev) => [...prev, optimisticMovement]);
+    const shouldShowOptimisticMovement = currentPage === 1;
+
+    if (shouldShowOptimisticMovement) {
+      setMovements((prev) => [optimisticMovement, ...prev].slice(0, pageSize));
+    }
+
     setTotalElements((prev) => prev + 1);
+    adjustStatsForMovement(data.quantity, 1);
     setIsSubmitting(true);
     setError(null);
 
     try {
       const response = await createMovement(data);
 
-      setMovements((prev) =>
-        prev.map((movement) =>
-          movement.resourceId === optimisticMovement.resourceId ? response : movement,
-        ),
-      );
+      if (shouldShowOptimisticMovement) {
+        setMovements((prev) =>
+          prev.map((movement) =>
+            movement.resourceId === optimisticMovement.resourceId ? response : movement,
+          ),
+        );
+      }
     } catch (fetchError) {
-      setMovements((prev) => prev.filter((movement) => movement.resourceId !== optimisticMovement.resourceId));
+      if (shouldShowOptimisticMovement) {
+        setMovements((prev) => prev.filter((movement) => movement.resourceId !== optimisticMovement.resourceId));
+      }
       setTotalElements((prev) => Math.max(0, prev - 1));
+      adjustStatsForMovement(data.quantity, -1);
       const message = fetchError instanceof Error ? fetchError.message : 'Unable to create movement';
       setError(message);
       console.error('Failed to create movement', fetchError);
