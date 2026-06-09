@@ -1,10 +1,10 @@
 'use client';
 
 import { createContext, useContext, useState } from 'react';
-import { createMovement } from '../../services/movements/post';
-import { getMovements } from '../../services/movements/get';
-import { useMovementStats } from './movement-stats-context';
 import type { MovementRequest, MovementResponse } from '../../lib/types/movement';
+import { getMovements } from '../../services/movements/get';
+import { createMovement } from '../../services/movements/post';
+import { useMovementStats } from './movement-stats-context';
 
 type MovementsContextType = {
   movements: MovementResponse[];
@@ -22,9 +22,7 @@ type MovementsContextType = {
 const MovementsContext = createContext<MovementsContextType | null>(null);
 
 const sortMovementsLatestFirst = (movements: MovementResponse[]) =>
-  [...movements].sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  );
+  [...movements].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
 export default function MovementsProvider({
   initialMovements,
@@ -62,7 +60,7 @@ export default function MovementsProvider({
     setError(null);
 
     try {
-      const response = await getMovements(page - 1, pageSize);
+      const response = await getMovements(page - 1);
 
       setMovements(sortMovementsLatestFirst(response.content ?? []));
       setCurrentPage(response.number + 1);
@@ -108,11 +106,14 @@ export default function MovementsProvider({
       }
     } catch (fetchError) {
       if (shouldShowOptimisticMovement) {
-        setMovements((prev) => prev.filter((movement) => movement.resourceId !== optimisticMovement.resourceId));
+        setMovements((prev) =>
+          prev.filter((movement) => movement.resourceId !== optimisticMovement.resourceId),
+        );
       }
       setTotalElements((prev) => Math.max(0, prev - 1));
       adjustStatsForMovement(data.quantity, -1);
-      const message = fetchError instanceof Error ? fetchError.message : 'Unable to create movement';
+      const message =
+        fetchError instanceof Error ? fetchError.message : 'Unable to create movement';
       setError(message);
       console.error('Failed to create movement', fetchError);
       throw fetchError;

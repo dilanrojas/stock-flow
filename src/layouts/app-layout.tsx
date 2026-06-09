@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { getMovements } from '../../services/movements/get';
 import type { MovementResponse } from '../../lib/types/movement';
-import type { PaginatedResponse } from '../../lib/types/page';
+import { getMovements } from '../../services/movements/get';
 import ModalRoot from '../components/modals/modal-root';
 import Sidebar from '../components/sidebar/sidebar';
 import AppSkeleton from '../components/skeletons/app-skeleton';
