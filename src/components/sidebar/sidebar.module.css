@@ -1,6 +1,6 @@
 .sidebar {
   position: relative;
-  min-height: 100dvh;
+  height: 100dvh;
   overflow-x: hidden;
   overflow-y: auto;
   display: flex;

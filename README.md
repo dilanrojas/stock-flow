@@ -56,12 +56,13 @@ Organización de historias y subtareas en [Jira](https://www.atlassian.com/es/so
 ```bash
 stock-flow/
 ├── lib/
-│   ├── api/        # Servicios de API y manejo de solicitudes
 │   ├── constants/  # Constantes globales, enums y valores de configuración
-│   ├── types/      # Interfaces y tipos compartidos de TypeScript
-│   └── utils/      # Funciones auxiliares y utilitarias
+│   └── types/      # Interfaces y tipos compartidos de TypeScript
 │
 ├── public/         # Recursos estáticos servidos directamente por Vite
+├── services/       # Lógica de servicios y llamadas a la API
+│   ├── api.ts
+│   └── movements/  # Endpoints y utilidades de movimientos
 │
 ├── src/
 │   ├── assets/          # Recursos estáticos de la aplicación
@@ -69,6 +70,7 @@ stock-flow/
 │   │
 │   ├── components/
 │   │   ├── auth/        # Componentes relacionados con el login
+│   │   ├── modals/      # Componentes de modales reutilizables
 │   │   ├── categories/  # Componentes relacionados con categorías
 │   │   ├── dashboard/   # Widgets, gráficos y componentes de resumen del dashboard
 │   │   ├── movements/   # Componentes de movimientos de inventario (entradas, salidas y ajustes)
@@ -76,9 +78,12 @@ stock-flow/
 │   │   ├── purchases/    # Componentes de gestión de compras
 │   │   ├── sales/       # Componentes relacionados con ventas
 │   │   ├── sidebar/     # Menú lateral de navegación de la aplicación
-│   │   └── ui/          # Componentes reutilizables de UI (botones, tablas, modales, inputs, etc.)
+│   │   ├── skeletons/   # Esqueletos y cargadores
+│   │   └── ui/          # Componentes reutilizables de UI (botones, tablas, inputs, etc.)
 │   │
-│   ├── layouts/         # Layouts reutilizables de la aplicación
+│   ├── contexts/       # Contextos globales de la aplicación
+│   │
+│   ├── layouts/        # Layouts reutilizables de la aplicación
 │   │
 │   ├── pages/               # Vistas principales asociadas a las rutas de la aplicación
 │   │   ├── auth.tsx         # Inicio de sesión
@@ -89,18 +94,21 @@ stock-flow/
 │   │   ├── purchases.tsx     # Compras
 │   │   └── sales.tsx        # Ventas
 │   │
-│   ├── app.css      # Estilos globales de la aplicación
-│   ├── app.tsx      # Componente raíz de la aplicación
-│   └── main.tsx     # Punto de entrada de la aplicación
+│   ├── app.css         # Estilos globales de la aplicación
+│   ├── app.tsx         # Componente raíz de la aplicación
+│   └── main.tsx        # Punto de entrada de la aplicación
 │
 ├── README.md            # Documentación e instrucciones de configuración
 ├── biome.json           # Configuración de Biome (formatter, linter y reglas de calidad)
 ├── index.html           # Archivo HTML principal utilizado por Vite
 ├── package.json         # Dependencias, scripts y metadatos del proyecto
 ├── pnpm-lock.yaml       # Versiones bloqueadas para instalaciones reproducibles
+├── pnpm-workspace.yaml  # Configuración del espacio de trabajo pnpm
+├── tailwind.config.ts   # Configuración de Tailwind CSS
 ├── tsconfig.app.json    # Configuración de TypeScript para el código de la aplicación
-├── tsconfig.json        # Configuración base compartida de TypeScript
-├── tsconfig.node.json   # Configuración de TypeScript para Node.js y Vite
+├── tsconfig.json         # Configuración base compartida de TypeScript
+├── tsconfig.node.json    # Configuración de TypeScript para Node.js y Vite
+├── vercel.json          # Configuración de despliegue en Vercel
 └── vite.config.ts       # Configuración de Vite (plugins, alias, build y servidor de desarrollo)
 ```
 
@@ -144,6 +152,16 @@ pnpm install
 pnpm run dev
 ```
 
+## Crear archivo .env
+
+Crea un archivo `.env` en la raíz del proyecto (`stock-flow/.env`) con la siguiente variable:
+
+```dotenv
+VITE_API_URL=https://stock-flow-api-lenj.onrender.com
+```
+
+Este archivo debe colocarse en la raíz del proyecto, junto a `package.json`, `vite.config.ts` y `README.md`.
+
 ---
 
 # Flujo de trabajo
@@ -151,10 +169,10 @@ pnpm run dev
 
 ## Variables de entorno
 
-Stock Flow utiliza el archivo `.env` para conectarse, entre otras cosas, a la API.
+Stock Flow utiliza el archivo `.env` para conectarse a la API.
 
 Añade las siguientes variables a dicho archivo:
-  - VITE_API_URL
+  - `VITE_API_URL` — apunta al backend en `https://stock-flow-api-lenj.onrender.com`
 
 ## Mantén tu rama actualizada
 

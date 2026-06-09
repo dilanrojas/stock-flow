@@ -15,12 +15,16 @@
   --fs-3xl: 2.2rem;
 
   --bg: rgb(255 255 255);
+  --bg-dim: rgb(0 0 0 / 0.5);
+
+  --bg-secondary: rgb(239, 244, 255);
 
   --text: rgb(0 0 0);
   --text-secondary: rgb(64 64 64);
   --text-tertiary: rgb(96 96 96);
 
   --border-input: rgb(223 223 227);
+  --bg-input: rgb(248, 249, 255);
 
   --accent: rgb(0 88 190);
   --accent-light: rgb(0 88 190 / 0.07);
@@ -33,9 +37,15 @@
   --white: rgb(255 255 255);
   --black: rgb(0 0 0);
   --light-gray: rgb(204 204 204);
+  --dark-gray: rgb(40 40 40);
   --red: rgb(225 53 47);
 
   /* Status colors */
+  --excelent: #22c55e;
+  --good: #0058be;
+  --poor: #0058be;
+  --critical: #ba1a1a;
+
   --success: rgb(34 211 145);
   --success-light: rgb(34 211 145 / 0.1);
 
@@ -66,9 +76,26 @@
   color-scheme: light;
 }
 
+body {
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Utility classes */
 .wrapper {
-  --width: 1280px;
+  --width: var(--custom-width, 1280px);
   --padding: 1rem;
 
   width: min(var(--width), 100% - var(--padding));
