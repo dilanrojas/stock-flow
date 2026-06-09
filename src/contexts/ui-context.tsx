@@ -11,7 +11,7 @@ type UIContextType = {
 const UIContext = createContext<UIContextType | undefined>(undefined);
 
 export default function UIProvider({ children }: { children: React.ReactNode }) {
-  const [modalState, setModalState] = useState<ModalState>({ type: 'ADD_MOVEMENT' });
+  const [modalState, setModalState] = useState<ModalState>({ type: 'NONE' });
 
   const openModal = (state: ModalState) => setModalState(state);
   const closeModal = () => setModalState({ type: 'NONE' });
