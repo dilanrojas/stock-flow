@@ -13,7 +13,6 @@ type MovementsContextType = {
   totalPages: number;
   totalElements: number;
   isLoading: boolean;
-  isSubmitting: boolean;
   error: string | null;
   goToPage: (page: number) => Promise<void>;
   addMovement: (data: MovementRequest) => Promise<void>;
@@ -42,7 +41,6 @@ export default function MovementsProvider({
   const [totalPages, setTotalPages] = useState(initialTotalPages);
   const [totalElements, setTotalElements] = useState(initialTotalElements);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { adjustStatsForMovement } = useMovementStats();
 
@@ -86,7 +84,6 @@ export default function MovementsProvider({
 
     setTotalElements((prev) => prev + 1);
     adjustStatsForMovement(data.quantity, 1);
-    setIsSubmitting(true);
     setError(null);
 
     try {
@@ -112,8 +109,6 @@ export default function MovementsProvider({
       setError(message);
       console.error('Failed to create movement', fetchError);
       throw fetchError;
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -126,7 +121,6 @@ export default function MovementsProvider({
         totalPages,
         totalElements,
         isLoading,
-        isSubmitting,
         error,
         goToPage,
         addMovement,
