@@ -46,7 +46,7 @@ export default function Modal({ title, children, action }: Props) {
             >
               Cancel
             </Button>
-            <Button type='submit'>Guardar</Button>
+            <Button type='submit'>Save</Button>
           </footer>
         </form>
       </article>
