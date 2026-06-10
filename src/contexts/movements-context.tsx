@@ -21,9 +21,6 @@ type MovementsContextType = {
 
 const MovementsContext = createContext<MovementsContextType | null>(null);
 
-const sortMovementsLatestFirst = (movements: MovementResponse[]) =>
-  [...movements].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
 export default function MovementsProvider({
   initialMovements,
   initialPage,
@@ -39,9 +36,7 @@ export default function MovementsProvider({
   initialTotalElements: number;
   children: React.ReactNode;
 }) {
-  const [movements, setMovements] = useState<MovementResponse[]>(() =>
-    sortMovementsLatestFirst(initialMovements),
-  );
+  const [movements, setMovements] = useState<MovementResponse[]>(() => initialMovements);
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [pageSize, setPageSize] = useState(initialPageSize);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
@@ -62,7 +57,7 @@ export default function MovementsProvider({
     try {
       const response = await getMovements(page - 1);
 
-      setMovements(sortMovementsLatestFirst(response.content ?? []));
+      setMovements(response.content ?? []);
       setCurrentPage(response.number + 1);
       setPageSize(response.size);
       setTotalPages(response.totalPages);
