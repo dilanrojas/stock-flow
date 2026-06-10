@@ -1,5 +1,3 @@
-'use client';
-
 import { useUI } from '../../contexts/ui-context';
 import MovementsModal from '../movements/movements-modal';
 

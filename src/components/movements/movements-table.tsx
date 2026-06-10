@@ -1,7 +1,3 @@
-'use client';
-
-'use client';
-
 import { useMemo } from 'react';
 import type { Column } from '../../../lib/types/column';
 import type { MovementResponse } from '../../../lib/types/movement';

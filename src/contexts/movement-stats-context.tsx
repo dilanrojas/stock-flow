@@ -1,5 +1,3 @@
-'use client';
-
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { MovementStats } from '../../lib/types/movement';
 import { getJSON } from '../../services/api';

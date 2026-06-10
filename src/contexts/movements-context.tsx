@@ -1,5 +1,3 @@
-'use client';
-
 import { createContext, useContext, useState } from 'react';
 import type { MovementRequest, MovementResponse } from '../../lib/types/movement';
 import { getMovements } from '../../services/movements/get';

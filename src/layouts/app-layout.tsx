@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import type { MovementResponse } from '../../lib/types/movement';
