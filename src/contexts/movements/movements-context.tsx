@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react';
-import type { MovementRequest, MovementResponse } from '../../lib/types/movement';
-import { getMovements } from '../../services/movements/get';
-import { createMovement } from '../../services/movements/post';
+import type { MovementRequest, MovementResponse } from '../../../lib/types/movement';
+import { getMovements } from '../../../services/movements/get';
+import { createMovement } from '../../../services/movements/post';
 import { useMovementStats } from './movement-stats-context';
 
 type MovementsContextType = {

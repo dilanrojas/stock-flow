@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { ChartBar, ChevronDoubleDown, ChevronDoubleUp } from '../../assets/icons';
-import { useMovementStats } from '../../contexts/movement-stats-context';
+import { useMovementStats } from '../../contexts/movements/movement-stats-context';
 import SectionStatus, { type SectionMetric } from '../ui/section-status';
 import StatusSkeleton from '../skeletons/status-skeleton';
 

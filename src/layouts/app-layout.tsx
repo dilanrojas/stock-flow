@@ -1,55 +1,26 @@
-import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import type { MovementResponse } from '../../lib/types/movement';
-import { getMovements } from '../../services/movements/get';
 import ModalRoot from '../components/modals/modal-root';
 import Sidebar from '../components/sidebar/sidebar';
 import AppSkeleton from '../components/skeletons/app-skeleton';
-import MovementStatsProvider from '../contexts/movement-stats-context';
-import MovementsProvider from '../contexts/movements-context';
+import MovementStatsProvider from '../contexts/movements/movement-stats-context';
+import MovementsProvider from '../contexts/movements/movements-context';
 import UIProvider from '../contexts/ui-context';
 import styles from './app-layout.module.css';
+import { useAppData } from '../hooks/useAppData';
+import StockStatsProvider from '../contexts/stock/stock-stats-context';
+import CategoryListProvider from '../contexts/categories/categories-context';
+import StockProvider from '../contexts/stock/stock-context';
+import ProductListProvider from '../contexts/products/products-context';
 
 export default function AppLayout() {
-  const [movements, setMovements] = useState<MovementResponse[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalElements, setTotalElements] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let active = true;
+  const {
+    movements, movementsPage, movementsPageSize, movementsTotalPages, movementsTotalElements,
+    stock, stockPage, stockPageSize, stockTotalPages, stockTotalElements,
+    categories, products,
+    isLoading, error,
+  } = useAppData();
 
-    const loadMovements = async () => {
-      try {
-        const response = await getMovements();
-
-        if (active) {
-          setMovements(response.content ?? []);
-          setCurrentPage(response.number + 1);
-          setPageSize(response.size);
-          setTotalPages(response.totalPages);
-          setTotalElements(response.totalElements);
-        }
-      } catch (fetchError) {
-        if (active) {
-          setError(fetchError instanceof Error ? fetchError.message : 'Unable to load movements');
-        }
-      } finally {
-        if (active) {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    loadMovements();
-
-    return () => {
-      active = false;
-    };
-  }, []);
 
   return (
     <div className={styles.layout}>
@@ -65,15 +36,29 @@ export default function AppLayout() {
           <MovementStatsProvider>
             <MovementsProvider
               initialMovements={movements}
-              initialPage={currentPage}
-              initialPageSize={pageSize}
-              initialTotalPages={totalPages}
-              initialTotalElements={totalElements}
+              initialPage={movementsPage}
+              initialPageSize={movementsPageSize}
+              initialTotalPages={movementsTotalPages}
+              initialTotalElements={movementsTotalElements}
             >
-              <UIProvider>
-                <Outlet />
-                <ModalRoot />
-              </UIProvider>
+              <StockStatsProvider>
+                <CategoryListProvider initialCategories={categories}>
+                  <StockProvider
+                    initialStock={stock}
+                    initialPage={stockPage}
+                    initialPageSize={stockPageSize}
+                    initialTotalPages={stockTotalPages}
+                    initialTotalElements={stockTotalElements}
+                  >
+                    <ProductListProvider initialProducts={products}>
+                      <UIProvider>
+                        <Outlet />
+                        <ModalRoot />
+                      </UIProvider>
+                    </ProductListProvider>
+                  </StockProvider>
+                </CategoryListProvider>
+              </StockStatsProvider>
             </MovementsProvider>
           </MovementStatsProvider>
         )}
