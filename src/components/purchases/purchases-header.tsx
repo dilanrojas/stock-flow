@@ -1,9 +1,21 @@
 import { Plus } from '../../assets/icons';
+import { useStockContext } from '../../contexts/stock/stock-context';
 import { useUI } from '../../contexts/ui-context';
 import SectionHeader from '../ui/section-header';
 
 export default function PurchasesHeader() {
   const { openModal } = useUI();
+
+  const { stock } = useStockContext();
+
+  const handleAdd = () => {
+    if (stock.length === 0) {
+      alert('Error: no products were found');
+      return;
+    }
+
+    openModal({ type: 'ADD_MOVEMENT' });
+  };
 
   return (
     <SectionHeader
@@ -11,7 +23,7 @@ export default function PurchasesHeader() {
       description='Product purchases and procurement records'
       actionLabel='Add purchase'
       icon={Plus}
-      onAction={() => openModal({ type: 'ADD_PURCHASE' })}
+      onAction={handleAdd}
     />
   );
 }
