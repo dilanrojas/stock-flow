@@ -157,7 +157,7 @@ pnpm run dev
 Crea un archivo `.env` en la raíz del proyecto (`stock-flow/.env`) con la siguiente variable:
 
 ```dotenv
-VITE_API_URL=https://stock-flow-api-lenj.onrender.com
+VITE_API_URL=https://stockflow-backend-84lf.onrender.com
 ```
 
 Este archivo debe colocarse en la raíz del proyecto, junto a `package.json`, `vite.config.ts` y `README.md`.
