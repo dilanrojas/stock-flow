@@ -4,7 +4,6 @@ import Sidebar from '../components/sidebar/sidebar';
 import AppSkeleton from '../components/skeletons/app-skeleton';
 import CategoryListProvider from '../contexts/categories/categories-context';
 import MovementsProvider from '../contexts/movements/movements-context';
-import ProductListProvider from '../contexts/products/products-context';
 import PurchaseListProvider from '../contexts/purchases/purchases-context';
 import StockProvider from '../contexts/stock/stock-context';
 import UIProvider from '../contexts/ui-context';
@@ -24,7 +23,6 @@ export default function AppLayout() {
     stockTotalPages,
     stockTotalElements,
     categories,
-    products,
     purchases,
     purchasesPage,
     purchasesPageSize,
@@ -53,28 +51,26 @@ export default function AppLayout() {
             initialTotalElements={movementsTotalElements}
           >
             <CategoryListProvider initialCategories={categories}>
-              <ProductListProvider initialProducts={products}>
-                <StockProvider
-                  initialStock={stock}
-                  initialPage={stockPage}
-                  initialPageSize={stockPageSize}
-                  initialTotalPages={stockTotalPages}
-                  initialTotalElements={stockTotalElements}
+              <StockProvider
+                initialStock={stock}
+                initialPage={stockPage}
+                initialPageSize={stockPageSize}
+                initialTotalPages={stockTotalPages}
+                initialTotalElements={stockTotalElements}
+              >
+                <PurchaseListProvider
+                  initialPurchases={purchases}
+                  initialPage={purchasesPage}
+                  initialPageSize={purchasesPageSize}
+                  initialTotalPages={purchasesTotalPages}
+                  initialTotalElements={purchasesTotalElements}
                 >
-                  <PurchaseListProvider
-                    initialPurchases={purchases}
-                    initialPage={purchasesPage}
-                    initialPageSize={purchasesPageSize}
-                    initialTotalPages={purchasesTotalPages}
-                    initialTotalElements={purchasesTotalElements}
-                  >
-                    <UIProvider>
-                      <Outlet />
-                      <ModalRoot />
-                    </UIProvider>
-                  </PurchaseListProvider>
-                </StockProvider>
-              </ProductListProvider>
+                  <UIProvider>
+                    <Outlet />
+                    <ModalRoot />
+                  </UIProvider>
+                </PurchaseListProvider>
+              </StockProvider>
             </CategoryListProvider>
           </MovementsProvider>
         )}

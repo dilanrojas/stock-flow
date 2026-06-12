@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import type { CategoryResponse } from '../../lib/types/category';
 import type { MovementResponse } from '../../lib/types/movement';
-import type { ProductResponse } from '../../lib/types/product';
 import type { PurchaseResponseModel } from '../../lib/types/purchase';
 import type { StockResponse } from '../../lib/types/stock';
 import { getCategories } from '../../services/categories/get';
 import { getMovements } from '../../services/movements/get';
-import { getProducts } from '../../services/products/get';
 import { getPurchases } from '../../services/purchases/get';
 import { getStock } from '../../services/stock/get';
 
@@ -31,7 +29,6 @@ export function useAppData() {
     paginatedDefaults(10),
   );
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
-  const [products, setProducts] = useState<ProductResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -40,19 +37,8 @@ export function useAppData() {
 
     const loadAll = async () => {
       try {
-        const [
-          movementsResponse,
-          stockResponse,
-          categoriesResponse,
-          productsResponse,
-          purchasesResponse,
-        ] = await Promise.all([
-          getMovements(),
-          getStock(),
-          getCategories(),
-          getProducts(),
-          getPurchases(),
-        ]);
+        const [movementsResponse, stockResponse, categoriesResponse, purchasesResponse] =
+          await Promise.all([getMovements(), getStock(), getCategories(), getPurchases()]);
 
         if (active) {
           setMovements({
@@ -77,7 +63,6 @@ export function useAppData() {
             totalElements: purchasesResponse.totalElements,
           });
           setCategories(categoriesResponse);
-          setProducts(productsResponse);
         }
       } catch (fetchError) {
         if (active) {
@@ -111,7 +96,6 @@ export function useAppData() {
     purchasesTotalPages: purchases.totalPages,
     purchasesTotalElements: purchases.totalElements,
     categories,
-    products,
     isLoading,
     error,
   };
