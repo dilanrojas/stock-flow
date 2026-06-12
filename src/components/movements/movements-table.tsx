@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import type { Column } from '../../../lib/types/column';
 import type { MovementResponse } from '../../../lib/types/movement';
-import { useMovements } from '../../contexts/movements-context';
+import { useMovements } from '../../contexts/movements/movements-context';
 import { Table } from '../ui/table';
 
 export default function MovementsTable() {

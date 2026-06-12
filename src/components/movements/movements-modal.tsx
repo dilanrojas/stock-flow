@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { MovementRequest } from '../../../lib/types/movement';
-import { useMovements } from '../../contexts/movements-context';
+import { useMovements } from '../../contexts/movements/movements-context';
 import Modal from '../modals/modal';
 import Input from '../ui/input';
 import Label from '../ui/label';

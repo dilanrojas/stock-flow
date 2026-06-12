@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { ChartBar, ChevronDoubleDown, ChevronDoubleUp } from '../../assets/icons';
-import { useMovementStats } from '../../contexts/movement-stats-context';
-import SectionStatus, { type SectionMetric } from '../ui/section-status';
+import { useMovementStats } from '../../contexts/movements/movement-stats-context';
 import StatusSkeleton from '../skeletons/status-skeleton';
+import SectionStatus, { type SectionMetric } from '../ui/section-status';
 
 export default function MovementsStatus() {
   const { stats, isLoading } = useMovementStats();
