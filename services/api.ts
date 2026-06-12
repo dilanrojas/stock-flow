@@ -67,8 +67,4 @@ export const deleteJSON = async <T = unknown>(endpoint: string, body?: unknown):
   requestJSON<T>(endpoint, {
     method: 'DELETE',
     body,
-<<<<<<< HEAD
   });
-=======
-  });
->>>>>>> origin/development
