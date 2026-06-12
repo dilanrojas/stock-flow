@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import type { MovementResponse } from '../../lib/types/movement';
-import type { StockResponse } from '../../lib/types/stock';
 import type { CategoryResponse } from '../../lib/types/category';
+import type { MovementResponse } from '../../lib/types/movement';
 import type { ProductResponse } from '../../lib/types/product';
-import { getMovements } from '../../services/movements/get';
-import { getStock } from '../../services/stock/get';
+import type { StockResponse } from '../../lib/types/stock';
 import { getCategories } from '../../services/categories/get';
+import { getMovements } from '../../services/movements/get';
 import { getProducts } from '../../services/products/get';
+import { getStock } from '../../services/stock/get';
 
 export function useAppData() {
   const [movements, setMovements] = useState<MovementResponse[]>([]);
@@ -32,12 +32,8 @@ export function useAppData() {
 
     const loadAll = async () => {
       try {
-        const [movementsResponse, stockResponse, categoriesResponse, productsResponse] = await Promise.all([
-          getMovements(),
-          getStock(),
-          getCategories(),
-          getProducts(),
-        ]);
+        const [movementsResponse, stockResponse, categoriesResponse, productsResponse] =
+          await Promise.all([getMovements(), getStock(), getCategories(), getProducts()]);
 
         if (active) {
           setMovements(movementsResponse.content ?? []);
@@ -67,13 +63,25 @@ export function useAppData() {
     };
 
     loadAll();
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, []);
 
   return {
-    movements, movementsPage, movementsPageSize, movementsTotalPages, movementsTotalElements,
-    stock, stockPage, stockPageSize, stockTotalPages, stockTotalElements,
-    categories, products,
-    isLoading, error,
+    movements,
+    movementsPage,
+    movementsPageSize,
+    movementsTotalPages,
+    movementsTotalElements,
+    stock,
+    stockPage,
+    stockPageSize,
+    stockTotalPages,
+    stockTotalElements,
+    categories,
+    products,
+    isLoading,
+    error,
   };
 }

@@ -1,9 +1,8 @@
 export type CategoryResponse = {
-    name: string;
-    resourceId: string;
-}
-
+  name: string;
+  resourceId: string;
+};
 
 export type CategoryRequest = {
-    name: string;
-}
+  name: string;
+};

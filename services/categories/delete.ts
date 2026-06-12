@@ -1,6 +1,6 @@
-import { deleteJSON } from "../api";
+import { deleteJSON } from '../api';
 
 const ENDPOINT = '/categories';
-export const deleteCategory = async(categoryResourceId: string): Promise<void> => {
-    await deleteJSON(`${ENDPOINT}/${categoryResourceId}`);
-}
+export const deleteCategory = async (categoryResourceId: string): Promise<void> => {
+  await deleteJSON(`${ENDPOINT}/${categoryResourceId}`);
+};

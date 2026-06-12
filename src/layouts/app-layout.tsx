@@ -2,25 +2,33 @@ import { Outlet } from 'react-router-dom';
 import ModalRoot from '../components/modals/modal-root';
 import Sidebar from '../components/sidebar/sidebar';
 import AppSkeleton from '../components/skeletons/app-skeleton';
+import CategoryListProvider from '../contexts/categories/categories-context';
 import MovementStatsProvider from '../contexts/movements/movement-stats-context';
 import MovementsProvider from '../contexts/movements/movements-context';
-import UIProvider from '../contexts/ui-context';
-import styles from './app-layout.module.css';
-import { useAppData } from '../hooks/useAppData';
-import StockStatsProvider from '../contexts/stock/stock-stats-context';
-import CategoryListProvider from '../contexts/categories/categories-context';
-import StockProvider from '../contexts/stock/stock-context';
 import ProductListProvider from '../contexts/products/products-context';
+import StockProvider from '../contexts/stock/stock-context';
+import StockStatsProvider from '../contexts/stock/stock-stats-context';
+import UIProvider from '../contexts/ui-context';
+import { useAppData } from '../hooks/useAppData';
+import styles from './app-layout.module.css';
 
 export default function AppLayout() {
-
   const {
-    movements, movementsPage, movementsPageSize, movementsTotalPages, movementsTotalElements,
-    stock, stockPage, stockPageSize, stockTotalPages, stockTotalElements,
-    categories, products,
-    isLoading, error,
+    movements,
+    movementsPage,
+    movementsPageSize,
+    movementsTotalPages,
+    movementsTotalElements,
+    stock,
+    stockPage,
+    stockPageSize,
+    stockTotalPages,
+    stockTotalElements,
+    categories,
+    products,
+    isLoading,
+    error,
   } = useAppData();
-
 
   return (
     <div className={styles.layout}>

@@ -1,21 +1,19 @@
-import type { CategoryResponse } from "./category";
+import type { CategoryResponse } from './category';
 
 export type ProductResponse = {
-    name: string;
-    description: string;
-    price: number;
-    resourceId: string;
-    categoryResponseModel: CategoryResponse;
-    imageURL: string;
-    
-}
-
+  name: string;
+  description: string;
+  price: number;
+  resourceId: string;
+  categoryResponseModel: CategoryResponse;
+  imageURL: string;
+};
 
 export type ProductRequest = {
-    name: string;
-    description?: string;
-    price: number;
-    categoryResourceId: string;
-    minimumQuantity: number;
-    imageURL: string;
-}
+  name: string;
+  description?: string;
+  price: number;
+  categoryResourceId: string;
+  minimumQuantity: number;
+  imageURL: string;
+};
