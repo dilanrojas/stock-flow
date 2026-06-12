@@ -9,9 +9,6 @@
   padding: 0.6rem 1rem;
   font-weight: 500;
 
-  border-top-right-radius: var(--rounding);
-  border-bottom-right-radius: var(--rounding);
-
   width: 100%;
   transition:
     background-color 0.12s ease,
@@ -32,8 +29,6 @@
 
   &::after {
     --pseudo-color: var(--accent-light);
-    border-top-right-radius: var(--rounding);
-    border-bottom-right-radius: var(--rounding);
     transition: width 0.2s ease;
   }
 

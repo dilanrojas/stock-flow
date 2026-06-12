@@ -1,21 +1,33 @@
 import { useMemo } from 'react';
 import type { Column } from '../../../lib/types/column';
 import type { MovementResponse } from '../../../lib/types/movement';
+import { formatDate } from '../../../lib/utils/format-date';
 import { useMovements } from '../../contexts/movements/movements-context';
+import { useStockContext } from '../../contexts/stock/stock-context';
 import { Table } from '../ui/table';
 
 export default function MovementsTable() {
   const { movements, currentPage, pageSize, totalElements, isLoading, error, goToPage } =
     useMovements();
+  const { stock } = useStockContext();
+
+  const stockMap = useMemo(
+    () => new Map(stock.map((item) => [item.resourceId, item.productResponseModel.name])),
+    [stock],
+  );
 
   const columns: Column<MovementResponse>[] = useMemo(
     () => [
-      { header: 'Resource', accessor: 'resourceId' },
+      {
+        header: 'Product',
+        accessor: 'stockResourceId',
+        render: (row) => stockMap.get(row.stockResourceId) ?? row.stockResourceId,
+      },
       { header: 'Quantity', accessor: 'quantity' },
       { header: 'Note', accessor: 'note' },
-      { header: 'Created At', accessor: 'createdAt' },
+      { header: 'Created At', accessor: 'createdAt', render: (row) => formatDate(row.createdAt) },
     ],
-    [],
+    [stockMap],
   );
 
   return (
@@ -25,7 +37,6 @@ export default function MovementsTable() {
           {error}
         </div>
       ) : null}
-
       <Table
         columns={columns}
         data={movements}
@@ -33,7 +44,6 @@ export default function MovementsTable() {
         totalItems={totalElements}
         pageSize={pageSize}
         onPageChange={goToPage}
-        getRowId={(row) => row.resourceId}
         emptyState='No movement records available.'
         isLoading={isLoading}
       />

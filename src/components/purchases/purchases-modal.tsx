@@ -2,14 +2,15 @@ import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 import type { PurchaseDetailRequestModel, PurchaseRequestModel } from '../../../lib/types/purchase';
 import { usePurchaseContext } from '../../contexts/purchases/purchases-context';
+import { useStockContext } from '../../contexts/stock/stock-context';
 import Modal from '../modals/modal';
 import Input from '../ui/input';
 import Label from '../ui/label';
 
 export default function PurchasesModal() {
   const { addPurchase } = usePurchaseContext();
+  const { stock } = useStockContext();
 
-  const [date, setDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [reason, setReason] = useState<string>('');
   const [purchaseDetails, setPurchaseDetails] = useState<PurchaseDetailRequestModel[]>([
     { stockResourceId: '', quantity: 1 },
@@ -47,11 +48,7 @@ export default function PurchasesModal() {
 
   const handleAdd = (): boolean => {
     setError(null);
-
-    if (!date) {
-      setError('Select a date');
-      return false;
-    }
+    const date = new Date().toISOString().split('T')[0];
 
     if (!reason) {
       setError('Write a reason');
@@ -84,17 +81,6 @@ export default function PurchasesModal() {
       title='New purchase'
       action={handleAdd}
     >
-      <Label htmlFor='date-input'>
-        Date
-        <Input
-          type='date'
-          name='date'
-          id='date-input'
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
-          value={date}
-        />
-      </Label>
-
       <Label htmlFor='reason-input'>
         Reason
         <Input
@@ -107,13 +93,6 @@ export default function PurchasesModal() {
       </Label>
 
       <div className='space-y-4'>
-        <h4
-          className='uppercase text-(--text-secondary) font-medium'
-          style={{ fontSize: 'var(--fs-xs)' }}
-        >
-          Purchase Details
-        </h4>
-
         {purchaseDetails.map((detail, index) => (
           <div
             key={detail.stockResourceId}
@@ -122,29 +101,38 @@ export default function PurchasesModal() {
             <div className='flex-1'>
               <Label htmlFor={`product-select-${detail.stockResourceId}`}>
                 Product
-                <select
-                  name='products'
-                  id={`product-select-${detail.stockResourceId}`}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    handleDetailChange(index, 'stockResourceId', e.target.value)
-                  }
-                  value={detail.stockResourceId}
-                  style={{
-                    border: '1px solid var(--border-input)',
-                    padding: '0.6rem 1.2rem',
-                    borderRadius: 'var(--rounded)',
-                    width: '100%',
-                  }}
-                >
-                  <option value=''>--Please choose an option--</option>
-                  <option value='686ec625-a851-4e46-8767-d9d0f6af7c14'>Laptop</option>
-                </select>
+                {stock.length > 0 && (
+                  <select
+                    name='products'
+                    id={`product-select-${detail.stockResourceId}`}
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                      handleDetailChange(index, 'stockResourceId', e.target.value)
+                    }
+                    value={detail.stockResourceId}
+                    style={{
+                      border: '1px solid var(--border-input)',
+                      padding: '0.6rem 1.2rem',
+                      borderRadius: 'var(--rounded)',
+                      width: '100%',
+                    }}
+                  >
+                    <option value=''>--Please choose an option--</option>
+                    {stock.map((stock) => (
+                      <option
+                        value={stock.resourceId}
+                        key={stock.resourceId}
+                      >
+                        {stock.productResponseModel.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
               </Label>
             </div>
 
             <div className='w-24'>
               <Label htmlFor={`quantity-input-${index}`}>
-                Qty
+                Quantity
                 <Input
                   type='number'
                   name='quantity'

@@ -1,7 +1,7 @@
 import { type ChangeEvent, useState } from 'react';
 import type { MovementRequest } from '../../../lib/types/movement';
 import { useMovements } from '../../contexts/movements/movements-context';
-import { useProductContext } from '../../contexts/products/products-context';
+import { useStockContext } from '../../contexts/stock/stock-context';
 import Modal from '../modals/modal';
 import Input from '../ui/input';
 import Label from '../ui/label';
@@ -28,9 +28,7 @@ const TypeSelectButton = ({
 
 export default function MovementsModal() {
   const { addMovement } = useMovements();
-  const { products } = useProductContext();
-
-  console.log(products);
+  const { stock } = useStockContext();
 
   const [stockId, setStockId] = useState<string>('');
   const [type, setType] = useState<'inflow' | 'outflow'>('inflow');
@@ -78,19 +76,28 @@ export default function MovementsModal() {
       {/* TODO: Waiting for products fetching */}
       <Label htmlFor='product-select'>
         Inventory product
-        <select
-          name='products'
-          id='product-select'
-          onChange={(e) => setStockId(e.target.value)}
-          style={{
-            border: '1px solid var(--border-input)',
-            padding: '0.6rem 1.2rem',
-            borderRadius: 'var(--rounded)',
-          }}
-        >
-          <option value=''>--Please choose an option--</option>
-          <option value='598f808d-6ae2-4472-a5af-3deef90c2e56'>Mousepad</option>
-        </select>
+        {stock.length > 0 && (
+          <select
+            name='products'
+            id='product-select'
+            onChange={(e) => setStockId(e.target.value)}
+            style={{
+              border: '1px solid var(--border-input)',
+              padding: '0.6rem 1.2rem',
+              borderRadius: 'var(--rounded)',
+            }}
+          >
+            <option value=''>--Please choose an option--</option>
+            {stock.map((stock) => (
+              <option
+                key={stock.resourceId}
+                value={stock.resourceId}
+              >
+                {stock.productResponseModel.name}
+              </option>
+            ))}
+          </select>
+        )}
       </Label>
 
       <div className='flex gap-6 items-center justify-between'>
@@ -122,7 +129,7 @@ export default function MovementsModal() {
               type='number'
               name='quantity'
               id='quantity-input'
-              min={0}
+              min={1}
               max={500}
               onChange={(e: ChangeEvent<HTMLInputElement>) => setQuantity(Number(e.target.value))}
               value={quantity}

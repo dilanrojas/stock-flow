@@ -29,8 +29,10 @@
   --accent: rgb(0 88 190);
   --accent-light: rgb(0 88 190 / 0.07);
 
-  --bg-sidebar: rgb(255 255 255);
-  --bg-sidebar-hover: rgb(240 240 240);
+  --bg-sidebar: rgb(16 22 34);
+  --bg-sidebar-secondary: rgb(28 38 56);
+  --bg-sidebar-hover: rgb(24 34 49);
+  --sidebar-text: rgb(146 164 201);
 
   --footer-border: rgb(220 220 220);
 
@@ -88,6 +90,7 @@ button {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

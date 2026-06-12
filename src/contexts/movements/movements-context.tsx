@@ -2,7 +2,6 @@ import { createContext, useContext, useState } from 'react';
 import type { MovementRequest, MovementResponse } from '../../../lib/types/movement';
 import { getMovements } from '../../../services/movements/get';
 import { createMovement } from '../../../services/movements/post';
-import { useMovementStats } from './movement-stats-context';
 
 type MovementsContextType = {
   movements: MovementResponse[];
@@ -40,7 +39,6 @@ export default function MovementsProvider({
   const [totalElements, setTotalElements] = useState(initialTotalElements);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { adjustStatsForMovement } = useMovementStats();
 
   const goToPage = async (page: number) => {
     if (page < 1 || page > totalPages || page === currentPage) {
@@ -81,7 +79,6 @@ export default function MovementsProvider({
     }
 
     setTotalElements((prev) => prev + 1);
-    adjustStatsForMovement(data.quantity, 1);
     setError(null);
 
     try {
@@ -101,7 +98,6 @@ export default function MovementsProvider({
         );
       }
       setTotalElements((prev) => Math.max(0, prev - 1));
-      adjustStatsForMovement(data.quantity, -1);
       const message =
         fetchError instanceof Error ? fetchError.message : 'Unable to create movement';
       setError(message);

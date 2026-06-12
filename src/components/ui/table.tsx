@@ -20,7 +20,6 @@ export function Table<T>({
   totalItems,
   pageSize = 10,
   onPageChange,
-  getRowId,
   emptyState,
   isLoading = false,
 }: TableProps<T>) {
@@ -58,13 +57,13 @@ export function Table<T>({
         <tbody className='divide-y divide-gray-100 border-t border-gray-100'>
           {isLoading ? (
             /* Loading State */
-            loadingRows.map((rowKey) => (
+            loadingRows.map((_) => (
               <tr
                 key={crypto.randomUUID()}
                 className='animate-pulse'
               >
-                {columns.map((col) => {
-                  const cellKey = `${col}-${rowKey}`;
+                {columns.map((_) => {
+                  const cellKey = `${crypto.randomUUID()}`;
                   return (
                     <td
                       key={cellKey}
@@ -88,8 +87,8 @@ export function Table<T>({
             </tr>
           ) : (
             /* Data State */
-            data.map((row, index) => {
-              const rowKey = getRowId ? String(getRowId(row)) : `fallback-row-${index}`;
+            data.map((row) => {
+              const rowKey = crypto.randomUUID();
 
               return (
                 <tr
@@ -97,7 +96,7 @@ export function Table<T>({
                   className='transition-colors hover:bg-gray-50'
                 >
                   {columns.map((col) => {
-                    const cellKey = `${col}-${rowKey}`;
+                    const cellKey = `${crypto.randomUUID()}`;
                     return (
                       <td
                         key={cellKey}

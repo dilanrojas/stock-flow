@@ -7,7 +7,6 @@ import { updateProduct as updateProductService } from '../../../services/product
 import { getStock } from '../../../services/stock/get';
 import { useCategoryContext } from '../categories/categories-context';
 import { useProductContext } from '../products/products-context';
-import { useStockStatsContext } from './stock-stats-context';
 
 type StockContextType = {
   stock: StockResponse[];
@@ -48,7 +47,6 @@ export default function StockProvider({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { categories } = useCategoryContext();
-  const { refreshStats } = useStockStatsContext();
   const { refreshProducts } = useProductContext();
 
   const goToPage = async (page: number) => {
@@ -106,7 +104,6 @@ export default function StockProvider({
     try {
       await createProduct(product);
       await goToPage(currentPage);
-      await refreshStats();
       await refreshProducts();
     } catch (fetchError) {
       if (shouldShowOptimistic) {
@@ -147,7 +144,6 @@ export default function StockProvider({
 
     try {
       await updateProductService(resourceId, product);
-      await refreshStats();
     } catch (fetchError) {
       setStock((prev) =>
         prev.map((item) =>
@@ -169,7 +165,6 @@ export default function StockProvider({
 
     try {
       await deleteProductService(resourceId);
-      await refreshStats();
       await refreshProducts();
     } catch (fetchError) {
       setStock((prev) => {

@@ -34,7 +34,6 @@ export default function PurchasesTable() {
         totalItems={totalElements}
         pageSize={pageSize}
         onPageChange={goToPage}
-        getRowId={(row) => row.resourceId}
         emptyState='No purchase records available.'
         isLoading={isLoading}
       />
