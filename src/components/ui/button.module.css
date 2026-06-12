@@ -6,12 +6,31 @@
   justify-content: center;
   font-weight: 501;
   gap: 0.4rem;
-  padding: 0.7rem 1rem;
+  padding: 0.4rem 1rem;
   border-radius: var(--rounded);
+  border: 1px solid var(--accent);
   transition: opacity 0.12s ease;
   cursor: pointer;
 
   &:hover {
     opacity: 0.8;
   }
+}
+
+.button[data-variant="secondary"] {
+  background-color: transparent;
+  border: 1px solid var(--light-gray);
+  color: var(--text);
+}
+
+.button[data-variant="tertiary"] {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--text);
+}
+
+.button[data-variant="outline"] {
+  background-color: transparent;
+  border: 1px solid var(--light-gray);
+  color: var(--text);
 }

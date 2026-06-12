@@ -2,6 +2,7 @@
   border: 1px solid var(--border-input);
   padding: 0.6rem 1.2rem;
   border-radius: var(--rounded);
+  background-color: var(--bg-input);
 }
 
 .input:focus {

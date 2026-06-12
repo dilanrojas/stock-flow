@@ -201,3 +201,80 @@ export function ArrowOut(props: IconProps) {
     </BaseIcon>
   );
 }
+
+export function Plus(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M12 4.5v15m7.5-7.5h-15'
+      />
+    </BaseIcon>
+  );
+}
+
+export function ChartBar(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z'
+      />
+    </BaseIcon>
+  );
+}
+
+export function ChevronLeft(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M15.75 19.5 8.25 12l7.5-7.5'
+      />
+    </BaseIcon>
+  );
+}
+
+export function ChevronRight(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='m8.25 4.5 7.5 7.5-7.5 7.5'
+      />
+    </BaseIcon>
+  );
+}
+
+export function ChevronDoubleUp(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='m4.5 18.75 7.5-7.5 7.5 7.5'
+      />
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='m4.5 12.75 7.5-7.5 7.5 7.5'
+      />
+    </BaseIcon>
+  );
+}
+
+export function ChevronDoubleDown(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5'
+      />
+    </BaseIcon>
+  );
+}
