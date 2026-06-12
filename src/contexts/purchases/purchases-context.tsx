@@ -69,7 +69,10 @@ export default function PurchaseListProvider({
       date: new Date().toISOString().split('T')[0],
       reason: purchase.reason,
       purchaseTotal: 0,
-      totalProductsAmount: purchase.purchaseDetails.reduce((sum, detail) => sum + detail.quantity, 0),
+      totalProductsAmount: purchase.purchaseDetails.reduce(
+        (sum, detail) => sum + detail.quantity,
+        0,
+      ),
     };
 
     const shouldShowOptimisticPurchase = currentPage === 1;
@@ -86,16 +89,12 @@ export default function PurchaseListProvider({
 
       if (shouldShowOptimisticPurchase) {
         setPurchases((prev) =>
-          prev.map((p) =>
-            p.resourceId === optimisticPurchase.resourceId ? response : p,
-          ),
+          prev.map((p) => (p.resourceId === optimisticPurchase.resourceId ? response : p)),
         );
       }
     } catch (fetchError) {
       if (shouldShowOptimisticPurchase) {
-        setPurchases((prev) =>
-          prev.filter((p) => p.resourceId !== optimisticPurchase.resourceId),
-        );
+        setPurchases((prev) => prev.filter((p) => p.resourceId !== optimisticPurchase.resourceId));
       }
       setTotalElements((prev) => prev - 1);
       setError(fetchError instanceof Error ? fetchError.message : 'Unable to create purchase');

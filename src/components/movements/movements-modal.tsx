@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { type ChangeEvent, useState } from 'react';
 import type { MovementRequest } from '../../../lib/types/movement';
 import { useMovements } from '../../contexts/movements/movements-context';
+import { useProductContext } from '../../contexts/products/products-context';
 import Modal from '../modals/modal';
 import Input from '../ui/input';
 import Label from '../ui/label';
@@ -27,6 +28,9 @@ const TypeSelectButton = ({
 
 export default function MovementsModal() {
   const { addMovement } = useMovements();
+  const { products } = useProductContext();
+
+  console.log(products);
 
   const [stockId, setStockId] = useState<string>('');
   const [type, setType] = useState<'inflow' | 'outflow'>('inflow');
@@ -120,7 +124,7 @@ export default function MovementsModal() {
               id='quantity-input'
               min={0}
               max={500}
-              onChange={(e) => setQuantity(Number(e.target.value))}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setQuantity(Number(e.target.value))}
               value={quantity}
             />
           </Label>
@@ -133,7 +137,7 @@ export default function MovementsModal() {
           name='note'
           id='note-input'
           placeholder='Aditional details about this movement'
-          onChange={(e) => setNote(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setNote(e.target.value)}
           value={note}
         />
       </Label>

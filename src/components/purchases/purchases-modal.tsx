@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import type { ChangeEvent } from 'react';
+import { useState } from 'react';
 import type { PurchaseDetailRequestModel, PurchaseRequestModel } from '../../../lib/types/purchase';
 import { usePurchaseContext } from '../../contexts/purchases/purchases-context';
 import Modal from '../modals/modal';
@@ -107,18 +107,24 @@ export default function PurchasesModal() {
       </Label>
 
       <div className='space-y-4'>
-        <h4 className='uppercase text-(--text-secondary) font-medium' style={{ fontSize: 'var(--fs-xs)' }}>
+        <h4
+          className='uppercase text-(--text-secondary) font-medium'
+          style={{ fontSize: 'var(--fs-xs)' }}
+        >
           Purchase Details
         </h4>
 
         {purchaseDetails.map((detail, index) => (
-          <div key={index} className='flex gap-3 items-end'>
+          <div
+            key={detail.stockResourceId}
+            className='flex gap-3 items-end'
+          >
             <div className='flex-1'>
-              <Label htmlFor={`product-select-${index}`}>
+              <Label htmlFor={`product-select-${detail.stockResourceId}`}>
                 Product
                 <select
                   name='products'
-                  id={`product-select-${index}`}
+                  id={`product-select-${detail.stockResourceId}`}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     handleDetailChange(index, 'stockResourceId', e.target.value)
                   }

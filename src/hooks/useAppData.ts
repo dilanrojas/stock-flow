@@ -39,8 +39,19 @@ export function useAppData() {
 
     const loadAll = async () => {
       try {
-        const [movementsResponse, stockResponse, categoriesResponse, productsResponse, purchasesResponse] =
-          await Promise.all([getMovements(), getStock(), getCategories(), getProducts(), getPurchases()]);
+        const [
+          movementsResponse,
+          stockResponse,
+          categoriesResponse,
+          productsResponse,
+          purchasesResponse,
+        ] = await Promise.all([
+          getMovements(),
+          getStock(),
+          getCategories(),
+          getProducts(),
+          getPurchases(),
+        ]);
 
         if (active) {
           setMovements(movementsResponse.content ?? []);

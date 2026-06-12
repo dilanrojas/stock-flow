@@ -14,4 +14,5 @@ export interface PurchaseRequestModel {
 
 export interface PurchaseDetailRequestModel {
   stockResourceId: string;
-  quantity: number;}
+  quantity: number;
+}

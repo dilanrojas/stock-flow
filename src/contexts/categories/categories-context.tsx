@@ -51,7 +51,9 @@ export default function CategoryListProvider({
   };
 
   const handleUpdateCategory = async (resourceId: string, category: CategoryRequest) => {
-    const currentCategory = categories.find((category) => category.resourceId === resourceId)!;
+    const currentCategory = categories.find((category) => category.resourceId === resourceId);
+
+    if (!currentCategory) return;
 
     const optimisticResponse: CategoryResponse = {
       name: category.name,
@@ -80,10 +82,12 @@ export default function CategoryListProvider({
   };
 
   const handleDeleteCategory = async (resourceId: string) => {
-    const currentCategory = categories.find((category) => category.resourceId === resourceId)!;
+    const currentCategory = categories.find((category) => category.resourceId === resourceId);
     const currentCategoryIndex = categories.findIndex(
       (category) => category.resourceId === resourceId,
     );
+
+    if (!currentCategory) return;
 
     setCategories((prev) => prev.filter((category) => category.resourceId !== resourceId));
     setError(null);

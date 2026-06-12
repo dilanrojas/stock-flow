@@ -2,7 +2,7 @@ import type { ProductResponse } from './product';
 
 export type StockResponse = {
   quantity: number;
-  mininumQuantity: number;
+  minimumQuantity: number;
   resourceId: string;
   productResponseModel: ProductResponse;
 };

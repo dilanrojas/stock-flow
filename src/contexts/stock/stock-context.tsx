@@ -1,9 +1,9 @@
 import { createContext, useContext, useState } from 'react';
 import type { ProductRequest } from '../../../lib/types/product';
 import type { StockResponse } from '../../../lib/types/stock';
-import { deleteProduct } from '../../../services/products/delete';
+import { deleteProduct as deleteProductService } from '../../../services/products/delete';
 import { createProduct } from '../../../services/products/post';
-import { updateProduct } from '../../../services/products/put';
+import { updateProduct as updateProductService } from '../../../services/products/put';
 import { getStock } from '../../../services/stock/get';
 import { useCategoryContext } from '../categories/categories-context';
 import { useProductContext } from '../products/products-context';
@@ -22,6 +22,7 @@ type StockContextType = {
   updateProduct: (productResourceId: string, product: ProductRequest) => Promise<void>;
   deleteProduct: (productResourceId: string) => Promise<void>;
 };
+
 const StockContext = createContext<StockContextType | null>(null);
 
 export default function StockProvider({
@@ -75,12 +76,14 @@ export default function StockProvider({
   const handleAddProduct = async (product: ProductRequest) => {
     const category = categories.find(
       (category) => category.resourceId === product.categoryResourceId,
-    )!;
+    );
+
+    if (!category) return;
 
     const optimisticResponse: StockResponse = {
       resourceId: `temp-${Date.now()}-${Math.random()}`,
       quantity: 0,
-      mininumQuantity: product.minimumQuantity,
+      minimumQuantity: product.minimumQuantity,
       productResponseModel: {
         name: product.name,
         description: product.description ?? '',
@@ -118,10 +121,11 @@ export default function StockProvider({
   const handleUpdateProduct = async (resourceId: string, product: ProductRequest) => {
     const category = categories.find(
       (category) => category.resourceId === product.categoryResourceId,
-    )!;
-    const currentStock = stock.find(
-      (stock) => stock.productResponseModel.resourceId === resourceId,
-    )!;
+    );
+
+    const currentStock = stock.find((item) => item.productResponseModel.resourceId === resourceId);
+
+    if (!category || !currentStock) return;
 
     const optimisticResponse: StockResponse = {
       ...currentStock,
@@ -136,18 +140,18 @@ export default function StockProvider({
     };
 
     setStock((prev) =>
-      prev.map((stock) =>
-        stock.productResponseModel.resourceId === resourceId ? optimisticResponse : stock,
+      prev.map((item) =>
+        item.productResponseModel.resourceId === resourceId ? optimisticResponse : item,
       ),
     );
 
     try {
-      await updateProduct(resourceId, product);
-      refreshStats();
+      await updateProductService(resourceId, product);
+      await refreshStats();
     } catch (fetchError) {
       setStock((prev) =>
-        prev.map((stock) =>
-          stock.productResponseModel.resourceId === resourceId ? currentStock : stock,
+        prev.map((item) =>
+          item.productResponseModel.resourceId === resourceId ? currentStock : item,
         ),
       );
       setError(fetchError instanceof Error ? fetchError.message : 'Unable to update product');
@@ -156,28 +160,23 @@ export default function StockProvider({
   };
 
   const handleDeleteProduct = async (resourceId: string) => {
-    const currentStock = stock.find(
-      (stock) => stock.productResponseModel.resourceId === resourceId,
-    )!;
-    const currentStockIndex = stock.findIndex(
-      (stock) => stock.productResponseModel.resourceId === resourceId,
-    );
+    const currentStock = stock.find((item) => item.productResponseModel.resourceId === resourceId);
 
-    setStock((prev) =>
-      prev.filter((stock) => stock.productResponseModel.resourceId !== resourceId),
-    );
+    if (!currentStock) return;
+
+    setStock((prev) => prev.filter((item) => item.productResponseModel.resourceId !== resourceId));
     setTotalElements((prev) => Math.max(0, prev - 1));
 
     try {
-      await deleteProduct(resourceId);
+      await deleteProductService(resourceId);
       await refreshStats();
       await refreshProducts();
     } catch (fetchError) {
-      setStock((prev) => [
-        ...prev.slice(0, currentStockIndex),
-        currentStock,
-        ...prev.slice(currentStockIndex),
-      ]);
+      setStock((prev) => {
+        const index = prev.findIndex((item) => item.productResponseModel.resourceId === resourceId);
+        const insertAt = index === -1 ? prev.length : index;
+        return [...prev.slice(0, insertAt), currentStock, ...prev.slice(insertAt)];
+      });
       setTotalElements((prev) => prev + 1);
       setError(fetchError instanceof Error ? fetchError.message : 'Unable to delete product');
       throw fetchError;
