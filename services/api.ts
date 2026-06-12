@@ -35,8 +35,25 @@ const requestJSON = async <T = unknown>(
 
   const response = await fetch(`${API_URL}${endpoint}`, buildRequest(options));
   if (!response.ok) {
-    const errorText = await response.text().catch(() => '');
-    throw new Error(`Error while fetching ${endpoint}${errorText ? `: ${errorText}` : ''}`);
+    const contentType = response.headers.get('content-type') ?? '';
+    let errorBody = '';
+
+    if (contentType.includes('application/json')) {
+      try {
+        const json = await response.json();
+        errorBody = JSON.stringify(json);
+      } catch {
+        errorBody = await response.text().catch(() => '');
+      }
+    } else {
+      errorBody = await response.text().catch(() => '');
+    }
+
+    throw new Error(
+      `Error while fetching ${endpoint} (status ${response.status}${response.statusText ? ` ${response.statusText}` : ''})${
+        errorBody ? `: ${errorBody}` : ''
+      }`,
+    );
   }
 
   return (await response.json()) as T;

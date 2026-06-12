@@ -57,14 +57,14 @@ export default function AppLayout() {
             >
               <StockStatsProvider>
                 <CategoryListProvider initialCategories={categories}>
-                  <StockProvider
-                    initialStock={stock}
-                    initialPage={stockPage}
-                    initialPageSize={stockPageSize}
-                    initialTotalPages={stockTotalPages}
-                    initialTotalElements={stockTotalElements}
-                  >
-                    <ProductListProvider initialProducts={products}>
+                  <ProductListProvider initialProducts={products}>
+                    <StockProvider
+                      initialStock={stock}
+                      initialPage={stockPage}
+                      initialPageSize={stockPageSize}
+                      initialTotalPages={stockTotalPages}
+                      initialTotalElements={stockTotalElements}
+                    >
                       <PurchaseListProvider
                         initialPurchases={purchases}
                         initialPage={purchasesPage}
@@ -77,8 +77,8 @@ export default function AppLayout() {
                           <ModalRoot />
                         </UIProvider>
                       </PurchaseListProvider>
-                    </ProductListProvider>
-                  </StockProvider>
+                    </StockProvider>
+                  </ProductListProvider>
                 </CategoryListProvider>
               </StockStatsProvider>
             </MovementsProvider>

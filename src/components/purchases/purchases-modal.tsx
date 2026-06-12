@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { ChangeEvent } from 'react';
 import type { PurchaseDetailRequestModel, PurchaseRequestModel } from '../../../lib/types/purchase';
 import { usePurchaseContext } from '../../contexts/purchases/purchases-context';
 import Modal from '../modals/modal';
@@ -26,10 +27,20 @@ export default function PurchasesModal() {
     }
   };
 
-  const handleDetailChange = (index: number, field: keyof PurchaseDetailRequestModel, value: string | number) => {
+  const handleDetailChange = (
+    index: number,
+    field: keyof PurchaseDetailRequestModel,
+    value: string | number,
+  ) => {
     setPurchaseDetails((prev) => {
       const updated = [...prev];
-      updated[index] = { ...updated[index], [field]: value };
+
+      if (field === 'quantity') {
+        updated[index] = { ...updated[index], quantity: Number(value) };
+      } else {
+        updated[index] = { ...updated[index], stockResourceId: String(value) };
+      }
+
       return updated;
     });
   };
@@ -79,7 +90,7 @@ export default function PurchasesModal() {
           type='date'
           name='date'
           id='date-input'
-          onChange={(e) => setDate(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
           value={date}
         />
       </Label>
@@ -90,7 +101,7 @@ export default function PurchasesModal() {
           name='reason'
           id='reason-input'
           placeholder='Purchase reason or notes'
-          onChange={(e) => setReason(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setReason(e.target.value)}
           value={reason}
         />
       </Label>
@@ -108,7 +119,9 @@ export default function PurchasesModal() {
                 <select
                   name='products'
                   id={`product-select-${index}`}
-                  onChange={(e) => handleDetailChange(index, 'stockResourceId', e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                    handleDetailChange(index, 'stockResourceId', e.target.value)
+                  }
                   value={detail.stockResourceId}
                   style={{
                     border: '1px solid var(--border-input)',
@@ -118,7 +131,7 @@ export default function PurchasesModal() {
                   }}
                 >
                   <option value=''>--Please choose an option--</option>
-                  <option value='598f808d-6ae2-4472-a5af-3deef90c2e56'>Mousepad</option>
+                  <option value='686ec625-a851-4e46-8767-d9d0f6af7c14'>Laptop</option>
                 </select>
               </Label>
             </div>
@@ -132,7 +145,9 @@ export default function PurchasesModal() {
                   id={`quantity-input-${index}`}
                   min={1}
                   max={500}
-                  onChange={(e) => handleDetailChange(index, 'quantity', Number(e.target.value))}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleDetailChange(index, 'quantity', Number(e.target.value))
+                  }
                   value={detail.quantity}
                 />
               </Label>
