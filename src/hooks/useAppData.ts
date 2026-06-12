@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import type { CategoryResponse } from '../../lib/types/category';
 import type { MovementResponse } from '../../lib/types/movement';
 import type { ProductResponse } from '../../lib/types/product';
+import type { PurchaseResponseModel } from '../../lib/types/purchase';
 import type { StockResponse } from '../../lib/types/stock';
 import { getCategories } from '../../services/categories/get';
 import { getMovements } from '../../services/movements/get';
 import { getProducts } from '../../services/products/get';
+import { getPurchases } from '../../services/purchases/get';
 import { getStock } from '../../services/stock/get';
 
 export function useAppData() {
@@ -23,6 +25,11 @@ export function useAppData() {
 
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
   const [products, setProducts] = useState<ProductResponse[]>([]);
+  const [purchases, setPurchases] = useState<PurchaseResponseModel[]>([]);
+  const [purchasesPage, setPurchasesPage] = useState(1);
+  const [purchasesPageSize, setPurchasesPageSize] = useState(10);
+  const [purchasesTotalPages, setPurchasesTotalPages] = useState(1);
+  const [purchasesTotalElements, setPurchasesTotalElements] = useState(0);
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,8 +39,8 @@ export function useAppData() {
 
     const loadAll = async () => {
       try {
-        const [movementsResponse, stockResponse, categoriesResponse, productsResponse] =
-          await Promise.all([getMovements(), getStock(), getCategories(), getProducts()]);
+        const [movementsResponse, stockResponse, categoriesResponse, productsResponse, purchasesResponse] =
+          await Promise.all([getMovements(), getStock(), getCategories(), getProducts(), getPurchases()]);
 
         if (active) {
           setMovements(movementsResponse.content ?? []);
@@ -50,6 +57,11 @@ export function useAppData() {
 
           setCategories(categoriesResponse);
           setProducts(productsResponse);
+          setPurchases(purchasesResponse.content ?? []);
+          setPurchasesPage(purchasesResponse.number + 1);
+          setPurchasesPageSize(purchasesResponse.size);
+          setPurchasesTotalPages(purchasesResponse.totalPages);
+          setPurchasesTotalElements(purchasesResponse.totalElements);
         }
       } catch (fetchError) {
         if (active) {
@@ -81,6 +93,11 @@ export function useAppData() {
     stockTotalElements,
     categories,
     products,
+    purchases,
+    purchasesPage,
+    purchasesPageSize,
+    purchasesTotalPages,
+    purchasesTotalElements,
     isLoading,
     error,
   };

@@ -6,6 +6,7 @@ import CategoryListProvider from '../contexts/categories/categories-context';
 import MovementStatsProvider from '../contexts/movements/movement-stats-context';
 import MovementsProvider from '../contexts/movements/movements-context';
 import ProductListProvider from '../contexts/products/products-context';
+import PurchaseListProvider from '../contexts/purchases/purchases-context';
 import StockProvider from '../contexts/stock/stock-context';
 import StockStatsProvider from '../contexts/stock/stock-stats-context';
 import UIProvider from '../contexts/ui-context';
@@ -26,6 +27,11 @@ export default function AppLayout() {
     stockTotalElements,
     categories,
     products,
+    purchases,
+    purchasesPage,
+    purchasesPageSize,
+    purchasesTotalPages,
+    purchasesTotalElements,
     isLoading,
     error,
   } = useAppData();
@@ -59,10 +65,18 @@ export default function AppLayout() {
                     initialTotalElements={stockTotalElements}
                   >
                     <ProductListProvider initialProducts={products}>
-                      <UIProvider>
-                        <Outlet />
-                        <ModalRoot />
-                      </UIProvider>
+                      <PurchaseListProvider
+                        initialPurchases={purchases}
+                        initialPage={purchasesPage}
+                        initialPageSize={purchasesPageSize}
+                        initialTotalPages={purchasesTotalPages}
+                        initialTotalElements={purchasesTotalElements}
+                      >
+                        <UIProvider>
+                          <Outlet />
+                          <ModalRoot />
+                        </UIProvider>
+                      </PurchaseListProvider>
                     </ProductListProvider>
                   </StockProvider>
                 </CategoryListProvider>
