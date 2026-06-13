@@ -14,7 +14,7 @@ export default function PurchasesHeader() {
       return;
     }
 
-    openModal({ type: 'ADD_MOVEMENT' });
+    openModal({ type: 'ADD_PURCHASE' });
   };
 
   return (

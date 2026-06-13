@@ -14,7 +14,7 @@ export default function SalesHeader() {
       return;
     }
 
-    openModal({ type: 'ADD_MOVEMENT' });
+    openModal({ type: 'ADD_SALE' });
   };
 
   return (
