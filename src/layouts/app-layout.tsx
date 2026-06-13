@@ -9,6 +9,7 @@ import StockProvider from '../contexts/stock/stock-context';
 import UIProvider from '../contexts/ui-context';
 import { useAppData } from '../hooks/use-app-data';
 import styles from './app-layout.module.css';
+import SaleListProvider from '../contexts/sales/sales-context';
 
 export default function AppLayout() {
   const {
@@ -28,6 +29,11 @@ export default function AppLayout() {
     purchasesPageSize,
     purchasesTotalPages,
     purchasesTotalElements,
+    sales,
+    salesPage,
+    salesPageSize,
+    salesTotalPages,
+    salesTotalElements,
     isLoading,
     error,
   } = useAppData();
@@ -65,10 +71,18 @@ export default function AppLayout() {
                   initialTotalPages={purchasesTotalPages}
                   initialTotalElements={purchasesTotalElements}
                 >
-                  <UIProvider>
-                    <Outlet />
-                    <ModalRoot />
-                  </UIProvider>
+                  <SaleListProvider
+                    initialSales={sales}
+                    initialPage={salesPage}
+                    initialPageSize={salesPageSize}
+                    initialTotalPages={salesTotalPages}
+                    initialTotalElements={salesTotalElements}
+                  >
+                    <UIProvider>
+                      <Outlet />
+                      <ModalRoot />
+                    </UIProvider>
+                  </SaleListProvider>
                 </PurchaseListProvider>
               </StockProvider>
             </CategoryListProvider>
