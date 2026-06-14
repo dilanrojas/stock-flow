@@ -6,6 +6,7 @@ export type ProductResponse = {
   price: number;
   resourceId: string;
   categoryResponseModel: CategoryResponse;
+  minimumQuantity: number,
   imageURL: string;
 };
 

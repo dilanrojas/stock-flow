@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import type { Column } from '../../../lib/types/column';
 import type { PurchaseResponseModel } from '../../../lib/types/purchase';
+import { formatPrice } from '../../../lib/utils/format-price';
 import { usePurchaseContext } from '../../contexts/purchases/purchases-context';
 import { Table } from '../ui/table';
 
@@ -14,7 +15,7 @@ export default function PurchasesTable() {
       { header: 'Date', accessor: 'date' },
       { header: 'Reason', accessor: 'reason' },
       { header: 'Total Products', accessor: 'totalProductsAmount' },
-      { header: 'Purchase Total', accessor: 'purchaseTotal' },
+      { header: 'Purchase Total', render: (row) => formatPrice(row.purchaseTotal) },
     ],
     [],
   );

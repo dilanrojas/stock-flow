@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import type { Column } from '../../../lib/types/column';
 import type { SaleResponse } from '../../../lib/types/sale';
+import { formatPrice } from '../../../lib/utils/format-price';
 import { useSalesContext } from '../../contexts/sales/sales-context';
 import { Table } from '../ui/table';
-
 
 export default function SalesTable() {
   const { sales, currentPage, pageSize, totalElements, isLoading, error, goToPage } =
@@ -14,7 +14,7 @@ export default function SalesTable() {
       { header: 'Date', accessor: 'date' },
       { header: 'Resource', accessor: 'resourceId' },
       { header: 'Total Products', accessor: 'totalProductsAmount' },
-      { header: 'Sale Total', accessor: 'saleTotal' },
+      { header: 'Sale Total', accessor: 'saleTotal', render: (row) => formatPrice(row.saleTotal) },
     ],
     [],
   );

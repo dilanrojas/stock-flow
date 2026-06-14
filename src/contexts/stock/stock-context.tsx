@@ -48,7 +48,7 @@ export default function StockProvider({
   const { categories } = useCategoryContext();
 
   const goToPage = async (page: number) => {
-    if (page < 1 || page > totalPages || page === currentPage) {
+    if (page < 1 || page > totalPages) {
       return;
     }
 
@@ -80,10 +80,12 @@ export default function StockProvider({
       resourceId: `temp-${Date.now()}-${Math.random()}`,
       quantity: 0,
       minimumQuantity: product.minimumQuantity,
+
       productResponseModel: {
         name: product.name,
         description: product.description ?? '',
         price: product.price,
+        minimumQuantity: product.minimumQuantity,
         resourceId: `temp-${Date.now()}-${Math.random()}`,
         categoryResponseModel: category,
         imageURL: product.imageURL,
@@ -123,10 +125,12 @@ export default function StockProvider({
 
     const optimisticResponse: StockResponse = {
       ...currentStock,
+      minimumQuantity: product.minimumQuantity,
       productResponseModel: {
         name: product.name,
         description: product.description ?? '',
         price: product.price,
+        minimumQuantity: product.minimumQuantity,
         resourceId: resourceId,
         categoryResponseModel: category,
         imageURL: product.imageURL,

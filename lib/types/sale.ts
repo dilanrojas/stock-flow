@@ -1,4 +1,3 @@
-
 export type SaleResponse = {
   date: string;
   resourceId: string;
@@ -15,11 +14,12 @@ export type SaleRequest = {
 export type SaleDetailRequest = {
   stockResourceId: string;
   quantity: number;
-}
+};
 
 export type SaleDetailResponse = {
   resourceId: string;
   name: string;
   quantity: number;
   unitPrice: number;
-  subtotal: number;};
+  subtotal: number;
+};

@@ -7,9 +7,10 @@ interface Props {
   title: string;
   children: React.ReactNode;
   action: (formData: FormData) => boolean;
+  buttonSubmitLabel?: string;
 }
 
-export default function Modal({ title, children, action }: Props) {
+export default function Modal({ title, children, buttonSubmitLabel = 'Save', action }: Props) {
   const { closeModal } = useUI();
 
   const handleSubmit = (formData: FormData) => {
@@ -46,7 +47,7 @@ export default function Modal({ title, children, action }: Props) {
             >
               Cancel
             </Button>
-            <Button type='submit'>Save</Button>
+            <Button type='submit'>{buttonSubmitLabel}</Button>
           </footer>
         </form>
       </article>

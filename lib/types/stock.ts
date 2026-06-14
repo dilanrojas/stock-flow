@@ -6,9 +6,3 @@ export type StockResponse = {
   resourceId: string;
   productResponseModel: ProductResponse;
 };
-
-export type StockStatsResponse = {
-  totalProducts: number;
-  lowStockProducts: number;
-  inventoryValue: number;
-};

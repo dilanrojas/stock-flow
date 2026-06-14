@@ -1,0 +1,15 @@
+.select {
+  border: 1px solid var(--border-input);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--rounded);
+}
+
+.error {
+  color: var(--red);
+  font-size: var(--fs-xs);
+}
+
+.warning {
+  color: var(--alert);
+  font-size: var(--fs-xs);
+}
