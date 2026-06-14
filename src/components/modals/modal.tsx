@@ -7,7 +7,7 @@ interface Props {
   title: string;
   children: React.ReactNode;
   action: (formData: FormData) => boolean;
-  buttonSubmitLabel? : string
+  buttonSubmitLabel?: string;
 }
 
 export default function Modal({ title, children, buttonSubmitLabel = 'Save', action }: Props) {

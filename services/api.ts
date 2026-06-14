@@ -50,7 +50,8 @@ const requestJSON = async <T = unknown>(
     }
 
     throw new Error(
-      `Error while fetching ${endpoint} (status ${response.status}${response.statusText ? ` ${response.statusText}` : ''})${errorBody ? `: ${errorBody}` : ''
+      `Error while fetching ${endpoint} (status ${response.status}${response.statusText ? ` ${response.statusText}` : ''})${
+        errorBody ? `: ${errorBody}` : ''
       }`,
     );
   }

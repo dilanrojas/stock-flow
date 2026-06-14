@@ -1,12 +1,11 @@
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 import type { SaleDetailRequest, SaleRequest } from '../../../lib/types/sale';
-import { useStockContext } from '../../contexts/stock/stock-context';
 import { useSalesContext } from '../../contexts/sales/sales-context';
+import { useStockContext } from '../../contexts/stock/stock-context';
 import Modal from '../modals/modal';
 import Input from '../ui/input';
 import Label from '../ui/label';
-
 
 export default function SalesModal() {
   const { addSale } = useSalesContext();

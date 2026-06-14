@@ -5,11 +5,11 @@ import AppSkeleton from '../components/skeletons/app-skeleton';
 import CategoryListProvider from '../contexts/categories/categories-context';
 import MovementsProvider from '../contexts/movements/movements-context';
 import PurchaseListProvider from '../contexts/purchases/purchases-context';
+import SaleListProvider from '../contexts/sales/sales-context';
 import StockProvider from '../contexts/stock/stock-context';
 import UIProvider from '../contexts/ui-context';
 import { useAppData } from '../hooks/use-app-data';
 import styles from './app-layout.module.css';
-import SaleListProvider from '../contexts/sales/sales-context';
 
 export default function AppLayout() {
   const {

@@ -1,39 +1,40 @@
-import { useState, type ChangeEvent } from "react";
-import { useCategoryContext } from "../../../contexts/categories/categories-context";
-import { useStockContext } from "../../../contexts/stock/stock-context";
-import type { ProductRequest } from "../../../../lib/types/product";
-import styles from './products-modal.module.css'
-import Modal from "../../modals/modal";
-import Label from "../../ui/label";
-import Input from "../../ui/input";
-
+import { type ChangeEvent, useState } from 'react';
+import type { ProductRequest } from '../../../../lib/types/product';
+import { useCategoryContext } from '../../../contexts/categories/categories-context';
+import { useStockContext } from '../../../contexts/stock/stock-context';
+import Modal from '../../modals/modal';
+import Input from '../../ui/input';
+import Label from '../../ui/label';
+import styles from './products-modal.module.css';
 
 type EditModalProps = {
-  resourceId : string
+  resourceId: string;
+};
 
-}
-
-export default function EditProductModal ({ resourceId }: EditModalProps) {
+export default function EditProductModal({ resourceId }: EditModalProps) {
   const { updateProduct, stock } = useStockContext();
   const { categories } = useCategoryContext();
 
-  const currentStock = stock.find(stock => stock.productResponseModel.resourceId === resourceId)
-  const productToEdit = currentStock?.productResponseModel
+  const currentStock = stock.find((stock) => stock.productResponseModel.resourceId === resourceId);
+  const productToEdit = currentStock?.productResponseModel;
 
   const [name, setName] = useState(productToEdit?.name);
   const [description, setDescription] = useState(productToEdit?.description);
   const [price, setPrice] = useState<string>(String(productToEdit?.price));
-  const [categoryResourceId, setCategoryResourceId] = useState(productToEdit?.categoryResponseModel.resourceId);
-  const [minimumQuantity, setMinimumQuantity] = useState<string>(String(currentStock?.minimumQuantity));
+  const [categoryResourceId, setCategoryResourceId] = useState(
+    productToEdit?.categoryResponseModel.resourceId,
+  );
+  const [minimumQuantity, setMinimumQuantity] = useState<string>(
+    String(currentStock?.minimumQuantity),
+  );
   const [imageURL, setImageURL] = useState(productToEdit?.imageURL ?? '');
   const [error, setError] = useState<string | null>(null);
 
-
   const handleEdit = (): boolean => {
-    setError(null)
+    setError(null);
 
-    const priceNumber = Number(price)
-    const minimumQuantityNumber = Number(minimumQuantity)
+    const priceNumber = Number(price);
+    const minimumQuantityNumber = Number(minimumQuantity);
 
     if (!name) {
       setError('Product name is required');
@@ -50,7 +51,6 @@ export default function EditProductModal ({ resourceId }: EditModalProps) {
       return false;
     }
 
-
     const newProduct: ProductRequest = {
       name,
       description,
@@ -64,12 +64,11 @@ export default function EditProductModal ({ resourceId }: EditModalProps) {
     return true;
   };
 
-
-
-
   return (
-    <Modal title="Edit Product" action={handleEdit}>
-
+    <Modal
+      title='Edit Product'
+      action={handleEdit}
+    >
       <Label htmlFor='name'>
         Name
         <Input
@@ -98,7 +97,7 @@ export default function EditProductModal ({ resourceId }: EditModalProps) {
           id='price'
           min={0}
           value={price}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setPrice((e.target.value))}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setPrice(e.target.value)}
         />
       </Label>
 
@@ -110,14 +109,15 @@ export default function EditProductModal ({ resourceId }: EditModalProps) {
           id='minimumQuantity'
           min={0}
           value={minimumQuantity}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setMinimumQuantity((e.target.value))}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setMinimumQuantity(e.target.value)}
         />
       </Label>
 
       {categories.length === 0 ? (
-        <p className={styles.warning}>There are no categories listed. Create a category before adding products.</p>
+        <p className={styles.warning}>
+          There are no categories listed. Create a category before adding products.
+        </p>
       ) : (
-
         <Label htmlFor='categoryResourceId'>
           Category
           <select
@@ -126,18 +126,18 @@ export default function EditProductModal ({ resourceId }: EditModalProps) {
             id='categoryResourceId'
             value={categoryResourceId}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => setCategoryResourceId(e.target.value)}
-
           >
             <option value=''>--Selecct a category--</option>
             {categories.map((category) => (
-              <option key={category.resourceId} value={category.resourceId}>
+              <option
+                key={category.resourceId}
+                value={category.resourceId}
+              >
                 {category.name}
               </option>
             ))}
           </select>
         </Label>
-
-
       )}
       <Label htmlFor='imageURL'>
         Image URL
@@ -146,24 +146,10 @@ export default function EditProductModal ({ resourceId }: EditModalProps) {
           id='imageURL'
           value={imageURL}
           onChange={(e: ChangeEvent<HTMLInputElement>) => setImageURL(e.target.value)}
-
         />
       </Label>
 
       {error && <p className={styles.error}>{error}</p>}
-
     </Modal>
-
-
-  )
-
+  );
 }
-
-
-
-
-
-
-
-
-

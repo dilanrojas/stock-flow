@@ -1,71 +1,61 @@
-
 .product-image {
-    width: 55px;
-    height: 55px;
-    object-fit: contain;
-    border-radius: var(--rounded-md);
-    background-color: transparent;
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  border-radius: var(--rounded-md);
+  background-color: transparent;
 }
 
-.fallback-image{
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    border-radius: var(--rounded-md);
-    background-color: var(--white);
-    color: var(--light-gray);
+.fallback-image {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: var(--rounded-md);
+  background-color: var(--white);
+  color: var(--light-gray);
 }
-
 
 .product-name {
-    display: flex;
-    justify-content: center;
-    font-size: var(--fs-xs);
+  display: flex;
+  justify-content: center;
+  font-size: var(--fs-xs);
 }
 .product-price {
-    display: flex;
-    font-size: var(--fs-xs);
-    justify-content: center;
+  display: flex;
+  font-size: var(--fs-xs);
+  justify-content: center;
 }
 
-
-.acction-buttons{
-    display: flex;
-    flex-direction: row;
-    gap: 0;
-    justify-content: center;
+.acction-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  justify-content: center;
 }
-
 
 .stock-quantity {
-    display: flex;
-    justify-content: center;
-    font-size: var(--fs-xs);
-    white-space: nowrap;    
+  display: flex;
+  justify-content: center;
+  font-size: var(--fs-xs);
+  white-space: nowrap;
 }
-
 
 .category-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px 15px;
-    border-radius: var(--rounded-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 15px;
+  border-radius: var(--rounded-lg);
 
-    font-size: var(--fs-xs);
-    font-weight: 500;
+  font-size: var(--fs-xs);
+  font-weight: 500;
 
-    background-color: var(--neutral);
-    color: var(--normal);
+  background-color: var(--neutral);
+  color: var(--normal);
 
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
-
-.container th{
-    text-align: center;
+.container th {
+  text-align: center;
 }
-
-
-
-

@@ -68,10 +68,7 @@ export default function SaleListProvider({
       resourceId: `temp-${Date.now()}-${Math.random()}`,
       date: sale.date,
       saleTotal: 0,
-      totalProductsAmount: sale.saleDetails.reduce(
-        (sum, detail) => sum + detail.quantity,
-        0,
-      ),
+      totalProductsAmount: sale.saleDetails.reduce((sum, detail) => sum + detail.quantity, 0),
       saleDetails: [],
     };
 

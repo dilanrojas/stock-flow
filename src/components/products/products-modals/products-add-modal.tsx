@@ -1,11 +1,11 @@
 import { type ChangeEvent, useState } from 'react';
 import type { ProductRequest } from '../../../../lib/types/product';
-import { useStockContext } from '../../../contexts/stock/stock-context';
 import { useCategoryContext } from '../../../contexts/categories/categories-context';
+import { useStockContext } from '../../../contexts/stock/stock-context';
 import Modal from '../../modals/modal';
 import Input from '../../ui/input';
 import Label from '../../ui/label';
-import styles from './products-modal.module.css'
+import styles from './products-modal.module.css';
 
 export default function AddProductModal() {
   const { addProduct } = useStockContext();
@@ -21,8 +21,8 @@ export default function AddProductModal() {
 
   const handleAdd = (): boolean => {
     setError(null);
-    const priceNumber = Number(price)
-    const minimumQuantityNumber = Number(minimumQuantity)
+    const priceNumber = Number(price);
+    const minimumQuantityNumber = Number(minimumQuantity);
     if (!name) {
       setError('Product name is required');
       return false;
@@ -52,7 +52,10 @@ export default function AddProductModal() {
   };
 
   return (
-    <Modal title='Add Product' action={handleAdd}>
+    <Modal
+      title='Add Product'
+      action={handleAdd}
+    >
       <Label htmlFor='name'>
         Name
         <Input
@@ -84,7 +87,7 @@ export default function AddProductModal() {
           id='price'
           min={0}
           value={price}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setPrice((e.target.value))}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setPrice(e.target.value)}
         />
       </Label>
 
@@ -97,14 +100,15 @@ export default function AddProductModal() {
           id='minimumQuantity'
           min={0}
           value={minimumQuantity}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setMinimumQuantity((e.target.value))}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setMinimumQuantity(e.target.value)}
         />
       </Label>
 
       {categories.length === 0 ? (
-        <p className={styles.warning}>There are no categories listed. Create a category before adding products.</p>
+        <p className={styles.warning}>
+          There are no categories listed. Create a category before adding products.
+        </p>
       ) : (
-
         <Label htmlFor='categoryResourceId'>
           Category
           <select
@@ -113,21 +117,19 @@ export default function AddProductModal() {
             id='categoryResourceId'
             value={categoryResourceId}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => setCategoryResourceId(e.target.value)}
-
           >
             <option value=''>--Selecct a category--</option>
             {categories.map((category) => (
-              <option key={category.resourceId} value={category.resourceId}>
+              <option
+                key={category.resourceId}
+                value={category.resourceId}
+              >
                 {category.name}
               </option>
             ))}
           </select>
         </Label>
-
-
       )}
-
-
 
       <Label htmlFor='imageURL'>
         Image URL
@@ -137,7 +139,6 @@ export default function AddProductModal() {
           id='imageURL'
           value={imageURL}
           onChange={(e: ChangeEvent<HTMLInputElement>) => setImageURL(e.target.value)}
-
         />
       </Label>
 

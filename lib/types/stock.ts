@@ -6,4 +6,3 @@ export type StockResponse = {
   resourceId: string;
   productResponseModel: ProductResponse;
 };
-

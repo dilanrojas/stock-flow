@@ -22,8 +22,8 @@ export default function ModalRoot() {
       return <EditProductModal resourceId={modalState.resourceId} />;
 
     case 'DELETE_PRODUCT':
-      return <DeleteProductModal resourceId={modalState.resourceId}/>
-      
+      return <DeleteProductModal resourceId={modalState.resourceId} />;
+
     case 'ADD_SALE':
       return <SalesModal />;
     default:

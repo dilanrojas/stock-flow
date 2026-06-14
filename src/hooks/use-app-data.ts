@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import type { CategoryResponse } from '../../lib/types/category';
 import type { MovementResponse } from '../../lib/types/movement';
 import type { PurchaseResponseModel } from '../../lib/types/purchase';
+import type { SaleResponse } from '../../lib/types/sale';
 import type { StockResponse } from '../../lib/types/stock';
 import { getCategories } from '../../services/categories/get';
 import { getMovements } from '../../services/movements/get';
 import { getPurchases } from '../../services/purchases/get';
-import { getStock } from '../../services/stock/get';
-import type { SaleResponse } from '../../lib/types/sale';
 import { getSales } from '../../services/sales/get';
+import { getStock } from '../../services/stock/get';
 
 type PaginatedState<T> = {
   data: T[];
@@ -40,8 +40,19 @@ export function useAppData() {
 
     const loadAll = async () => {
       try {
-        const [movementsResponse, stockResponse, categoriesResponse, purchasesResponse, salesResponse] =
-          await Promise.all([getMovements(), getStock(), getCategories(), getPurchases(), getSales()]);
+        const [
+          movementsResponse,
+          stockResponse,
+          categoriesResponse,
+          purchasesResponse,
+          salesResponse,
+        ] = await Promise.all([
+          getMovements(),
+          getStock(),
+          getCategories(),
+          getPurchases(),
+          getSales(),
+        ]);
 
         if (active) {
           setMovements({
