@@ -7,6 +7,8 @@ import { getCategories } from '../../services/categories/get';
 import { getMovements } from '../../services/movements/get';
 import { getPurchases } from '../../services/purchases/get';
 import { getStock } from '../../services/stock/get';
+import type { SaleResponse } from '../../lib/types/sale';
+import { getSales } from '../../services/sales/get';
 
 type PaginatedState<T> = {
   data: T[];
@@ -28,6 +30,7 @@ export function useAppData() {
   const [purchases, setPurchases] = useState<PaginatedState<PurchaseResponseModel>>(
     paginatedDefaults(10),
   );
+  const [sales, setSales] = useState<PaginatedState<SaleResponse>>(paginatedDefaults(10));
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,8 +40,8 @@ export function useAppData() {
 
     const loadAll = async () => {
       try {
-        const [movementsResponse, stockResponse, categoriesResponse, purchasesResponse] =
-          await Promise.all([getMovements(), getStock(), getCategories(), getPurchases()]);
+        const [movementsResponse, stockResponse, categoriesResponse, purchasesResponse, salesResponse] =
+          await Promise.all([getMovements(), getStock(), getCategories(), getPurchases(), getSales()]);
 
         if (active) {
           setMovements({
@@ -61,6 +64,13 @@ export function useAppData() {
             pageSize: purchasesResponse.size,
             totalPages: purchasesResponse.totalPages,
             totalElements: purchasesResponse.totalElements,
+          });
+          setSales({
+            data: salesResponse.content ?? [],
+            page: salesResponse.number + 1,
+            pageSize: salesResponse.size,
+            totalPages: salesResponse.totalPages,
+            totalElements: salesResponse.totalElements,
           });
           setCategories(categoriesResponse);
         }
@@ -95,6 +105,11 @@ export function useAppData() {
     purchasesPageSize: purchases.pageSize,
     purchasesTotalPages: purchases.totalPages,
     purchasesTotalElements: purchases.totalElements,
+    sales: sales.data,
+    salesPage: sales.page,
+    salesPageSize: sales.pageSize,
+    salesTotalPages: sales.totalPages,
+    salesTotalElements: sales.totalElements,
     categories,
     isLoading,
     error,

@@ -13,4 +13,4 @@
 // pasar por props el resourceId para indicar qué product se está editando.
 
 export type ModalState = { type: 'NONE' } | { type: 'ADD_MOVEMENT' } | { type: 'ADD_PURCHASE' } | {type : 'ADD_PRODUCT'} 
-                       | {type: 'EDIT_PRODUCT', resourceId : string} | {type: 'DELETE_PRODUCT', resourceId : string};
+                       | {type: 'EDIT_PRODUCT', resourceId : string} | {type: 'DELETE_PRODUCT', resourceId : string} | {type: 'ADD_SALE'};

@@ -1,7 +1,12 @@
+import SalesHeader from "../components/sales/sales-header"
+import SalesTable from "../components/sales/sales-table"
+import AppSection from "../components/ui/app-section"
+
 export default function Sales() {
   return (
-    <section>
-      <h1>Sales</h1>
-    </section>
+    <AppSection>
+          <SalesHeader />
+          <SalesTable />
+    </AppSection>
   );
 }
