@@ -7,8 +7,3 @@ export type StockResponse = {
   productResponseModel: ProductResponse;
 };
 
-export type StockStatsResponse = {
-  totalProducts: number;
-  lowStockProducts: number;
-  inventoryValue: number;
-};

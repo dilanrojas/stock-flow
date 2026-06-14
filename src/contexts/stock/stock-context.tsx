@@ -48,7 +48,7 @@ export default function StockProvider({
   const { categories } = useCategoryContext();
 
   const goToPage = async (page: number) => {
-    if (page < 1 || page > totalPages || page === currentPage) {
+    if (page < 1 || page > totalPages) {
       return;
     }
 

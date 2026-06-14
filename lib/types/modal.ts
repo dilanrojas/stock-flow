@@ -12,4 +12,5 @@
 // Esto indicaría que, si el type === 'EDIT_PRODUCT', se debe
 // pasar por props el resourceId para indicar qué product se está editando.
 
-export type ModalState = { type: 'NONE' } | { type: 'ADD_MOVEMENT' } | { type: 'ADD_PURCHASE' };
+export type ModalState = { type: 'NONE' } | { type: 'ADD_MOVEMENT' } | { type: 'ADD_PURCHASE' } | {type : 'ADD_PRODUCT'} 
+                       | {type: 'EDIT_PRODUCT', resourceId : string} | {type: 'DELETE_PRODUCT', resourceId : string};

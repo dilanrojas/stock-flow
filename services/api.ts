@@ -50,13 +50,17 @@ const requestJSON = async <T = unknown>(
     }
 
     throw new Error(
-      `Error while fetching ${endpoint} (status ${response.status}${response.statusText ? ` ${response.statusText}` : ''})${
-        errorBody ? `: ${errorBody}` : ''
+      `Error while fetching ${endpoint} (status ${response.status}${response.statusText ? ` ${response.statusText}` : ''})${errorBody ? `: ${errorBody}` : ''
       }`,
     );
   }
 
-  return (await response.json()) as T;
+  if (response.status === 204) {
+    return undefined as T;
+  }
+
+  const text = await response.text();
+  return text ? (JSON.parse(text) as T) : (undefined as T);
 };
 
 export const getJSON = async <T = unknown>(endpoint: string): Promise<T> =>

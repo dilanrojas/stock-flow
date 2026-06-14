@@ -3,6 +3,7 @@ import type { Column } from '../../../lib/types/column';
 import type { PurchaseResponseModel } from '../../../lib/types/purchase';
 import { usePurchaseContext } from '../../contexts/purchases/purchases-context';
 import { Table } from '../ui/table';
+import { formatPrice } from '../../../lib/utils/format-price';
 
 export default function PurchasesTable() {
   const { purchases, currentPage, pageSize, totalElements, isLoading, error, goToPage } =
@@ -14,7 +15,7 @@ export default function PurchasesTable() {
       { header: 'Date', accessor: 'date' },
       { header: 'Reason', accessor: 'reason' },
       { header: 'Total Products', accessor: 'totalProductsAmount' },
-      { header: 'Purchase Total', accessor: 'purchaseTotal' },
+      { header: 'Purchase Total', render: (row) => (formatPrice(row.purchaseTotal)) },
     ],
     [],
   );
